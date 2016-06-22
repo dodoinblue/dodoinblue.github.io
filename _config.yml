@@ -17,8 +17,8 @@ links:
   - name:         GitHub
     url:          http://github.com/dodoinblue
     external:     true
-pygments:         true
+highlighter:      pygments
 permalink:        pretty
-markdown:         rdiscount
-rdiscount:
+markdown:         kramdown
+kramdown:
   extensions:     [smart]
