@@ -45,8 +45,12 @@ date: 2016-06-23
   <!-- Any section element inside of this container is displayed as a slide -->
   <div class="slides">
     <section>
-      <h1>Git 101</h1>
-      <h3>The git training</h3>
+      <img width="303" height="126"
+           style="border-width: 0px; background: transparent;"
+           data-src="{{site.baseurl}}/content_image/git.101.slides/Git-Logo-White.png"
+           alt="gitk">
+      <h2>Git 101</h2>
+      <!--<h3>The git training</h3>-->
       <p>
         <small>Created by <a href="http://supersuperstar.com">Charles Liu</a></small>
       </p>
@@ -87,19 +91,29 @@ date: 2016-06-23
       </section>
       <section>
         <h2>手动存储</h2>
-        <img data-src="{{site.baseurl}}/content_image/git.101.slides/git.101.vcs.funny.png">
+        <img width="201" height="500"
+             data-src="{{site.baseurl}}/content_image/git.101.slides/git.101.vcs.funny.png">
       </section>
       <section>
         <h2>网盘存储</h2>
       </section>
       <section>
         <h2>wiki</h2>
+        <img width="853" height="607"
+             style="border-width: 0px; background: transparent;"
+             data-src="{{site.baseurl}}/content_image/git.101.slides/wiki_history.png">
       </section>
       <section>
         <h2>cvs 或者 svn</h2>
+        <img width="768" height="559"
+             style="border-width: 0px; background: transparent;"
+             data-src="{{site.baseurl}}/content_image/git.101.slides/RevisionGraph.SVN.png">
       </section>
       <section>
         <h2>git 或者 mercury</h2>
+        <img width="768" height="559"
+             style="border-width: 0px; background: transparent;"
+             data-src="{{site.baseurl}}/content_image/git.101.slides/git_cli.png">
       </section>
     </section>
 
@@ -178,14 +192,33 @@ date: 2016-06-23
 
         </ul>
       </small>
+
+      <aside class="notes">
+        Even if you work alone you can benefit from source control. Among others, for these reasons:
+
+        You don't lose anything. I never again commented out code. I simply delete it. It doesn't clutter my screen, and it isn't lost. I can recover it by checking out an old commit.
+        You can experiment at will. If it doesn't solve the problem, revert it.
+        You can look at previous versions of the code to find out when and where bugs were introduced. git bisect is great in that regard.
+        More "advanced" features like branching and merging let you have multiple parallel lines of development. You can work in two simultaneous features without interference and switch back and forth without much hassle.
+        You can see "what changed". This may sound basic, but that's something I find myself checking a lot. I very often begin my one-man workflow with: what did I do yesterday?
+        Just go ahead and try it. Start slowly with basic features and learn others as you go. You will soon find that you won't ever want to go back to "the dark ages" of no VCS.
+
+        If you want a local VCS you can setup your own subversion server (what I did in the past), but today I would recommend using git. Much simpler. Simply cd to your code directory and run:
+
+        git init
+        Welcome to the club.
+
+        http://stackoverflow.com/questions/1408450/why-should-i-use-version-control
+      </aside>
     </section>
 
     <section>
       <section>
         <h2>git的诞生</h2>
         <div class="fragment">
-          <img width="178" height="238"
-               data-src="{{site.baseurl}}/content_image/git.101.slides/linus_torvalds.png"
+          <!--440 × 601-->
+          <img width="267" height="357"
+               data-src="{{site.baseurl}}/content_image/git.101.slides/Linus_Torvalds.jpeg"
                alt="Linux Torvalds">
           <br>
           Linus Torvalds
@@ -228,47 +261,55 @@ date: 2016-06-23
 
       <section>
         <h2>Windows</h2>
+        <!--315 × 225-->
         <p>Git for Windows</p>
-        <img width="178" height="238"
+        <img width="262" height="187"
              data-src="{{site.baseurl}}/content_image/git.101.slides/git_bash.png"
              alt="git bash">
-        <img width="178" height="238"
+        <img width="262" height="187"
              data-src="{{site.baseurl}}/content_image/git.101.slides/git_gui.png"
              alt="git gui">
-        <img width="178" height="238"
+        <img width="262" height="187"
              data-src="{{site.baseurl}}/content_image/git.101.slides/gitk.png"
              alt="gitk">
+
+        <p>安装: https://git-for-windows.github.io/</p>
       </section>
 
       <section>
-        <h2>Windows</h2>
-        <p>cygwin / bash for windows 10</p>
-        <img width="178" height="238"
-             data-src="{{site.baseurl}}/content_image/git.101.slides/cygwin.png"
-             alt="cygwin">
-        <p>安装步骤</p>
-        <aside class="notes">
-          推荐使用命令行.
-          统一的术语便于交流
-          方便自动化脚本的编写
-          效率更高
-        </aside>
-      </section>
+    <h2>Windows</h2>
+    <p>cygwin (or bash for windows 10) (推荐)</p>
+    <img width="378" height="270"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/cygwin9.png"
+         alt="cygwin">
+    <p>安装: https://cygwin.com/install.html</p>
+    <aside class="notes">
+      推荐使用命令行.
+      统一的术语便于交流
+      方便自动化脚本的编写
+      效率更高
+    </aside>
+  </section>
     </section>
 
-    <section data-background="#4d7e65">
+    <!--<section data-background="#b5533c">-->
+    <section data-background="{{site.baseurl}}/content_image/git.101.slides/office_desktop.jpg">
+      <!-- 需要联网 -->
       <h2>获取一个repository</h2>
       <p>git clone</p><br>
-      <p>试着获取reveal.js框架代码
+      <p>试着获取emoji-minesweeper框架代码
         <br>
-        https://github.com/hakimel/reveal.js
+        https://github.com/dodoinblue/emoji-minesweeper
       </p>
       <pre class="fragment"><code class="hljs" data-trim>
-        $ git clone git@github.com:hakimel/reveal.js.git # 需要联网
+# 需要联网
+$ git clone git@github.com:dodoinblue/emoji-minesweeper.git
       </code></pre>
     </section>
 
-    <section>
+
+    <!-- 只读操作部分 -->
+    <section data-background="{{site.baseurl}}/content_image/git.101.slides/tent.jpg">
       <section>
         <h2>查看repo的历史记录</h2>
         <p>git log</p>
@@ -282,42 +323,42 @@ $ git log # 不需网络
 
       <section>
         <pre><code class="hljs" data-trim>
-commit 4f29ba8494b62027e7991bb39cd5181b8d8a7a5b
-Author: Charles Liu &lt;dodoinblue@gmail.com>
-Date:   Thu Jun 23 15:51:06 2016 +0800
+commit d2ddef48a916da9dd78526d004bcad5e9fa44ad5
+Author: Mu-An Chiou &lt;muan@github.com>
+Date:   Mon Feb 8 01:48:05 2016 +0800
 
-try to add one demo slide
+:grimacing:
 
-commit 57a25b2d1b53a0cd224c5ecd21f9205cf2f8fe13
-Author: Charles Liu &lt;dodoinblue@gmail.com>
-Date:   Thu Jun 23 14:22:38 2016 +0800
+commit e4c78a2cd35d9fb92e69f0f80b426f64cd327504
+Author: Mu-An Chiou &lt;muan@github.com>
+Date:   Sun Feb 7 16:46:24 2016 +0800
 
-add reveal.js presentation framework
+☔
 
-commit 4a4304fdfe0e42bfa0234360f2c1be53319d1916
-Author: Charles Liu &lt;dodoinblue@gmail.com>
-Date:   Thu Jun 23 10:53:04 2016 +0800
+commit a3dcc600deee31309acaf2676ab6bfe5d7322e6d
+Author: Mu-An Chiou &lt;muan@github.com>
+Date:   Sun Feb 7 16:42:11 2016 +0800
 
-try fix the missing post
+Add a set
 
-commit 3eea595016731657c55ac016138a7c10c16d0ac9
-Author: Charles Liu &lt;dodoinblue@gmail.com>
-Date:   Wed Jun 22 18:52:14 2016 +0800
+commit 1ba3c811150d23380140fe497140681e196c4ea9
+Author: Mu-An Chiou &lt;muan@github.com>
+Date:   Sun Feb 7 16:10:02 2016 +0800
 
-git advanced
+Up native emoji font-size
 
-commit d0331d609aef065020145031affebd21b397cab5
-Author: Charles Liu &lt;dodoinblue@gmail.com>
-Date:   Wed Jun 22 18:29:54 2016 +0800
+commit 2b8f14aa2d74c1d287634da52808acf08b1fece6
+Merge: 2707be9 03f873b
+Author: Mu-An Chiou &lt;muan@github.com>
+Date:   Tue Dec 1 21:50:57 2015 +0900
 
-git basics
+Merge pull request #16 from francisfuzz/patch-1
 
-commit 3798f3fb9f5f521efde29271be0d2c84acc965ed
 :
         </code></pre>
         <br>
         <small>
-          log内容:
+          <span class="fragment">log内容:</span>
           <span class="fragment"> Commit Id</span>
           <span class="fragment">- 作者</span>
           <span class="fragment">- 时间</span>
@@ -329,28 +370,214 @@ commit 3798f3fb9f5f521efde29271be0d2c84acc965ed
         <h2>定制log的输出内容和格式</h2>
         <pre class="fragment"><code class="hljs" data-trim>
 $ git log --oneline # 每个commit用一行显示
+d2ddef4 :grimacing:
+e4c78a2 ☔
+a3dcc60 Add a set
+1ba3c81 Up native emoji font-size
+2b8f14a Merge pull request #16 from francisfuzz/patch-1
+03f873b (docs) correct typo
+2707be9 Add link to GitHub
+b76a7d6 @jsstrn did this! :tada:
+d983f5f Merge pull request #15 from jsstrn/gh-pages
+14c88f7 Add selection for different emoji sets
+b272295 Merge pull request #12 from eush77/restart-key
+6fba66c Merge pull request #11 from eush77/firefox-textcontent-fix
+4a06015 Add shortcut for restarting the game
+019a03f Replace innerText with textContent
+9e0b44f Merge pull request #10 from nkantar/gh-pages
+738b6ed Oops, moar double quotes
+6182c68 Oops, double quotes
+1eee74a Adds max='500' to input fields
+bbeb0ee Adds min='1' to input fields
+ebdf69d Rearrange readme sections
+8efa43f :straight_ruler: Align
+cff9c55 :infomation_desk_person: in case you've not played minesweeper before
+d9537b4 :beetle: fix sometimes getting one extra bomb
+caa970b :x: remove borders
+327c0b2 :heart_eyes: update gif
+fd2ed50 :flower: style divider
+3a729b5 :nail_care: hide all settings in a popup so much cleaner but much css
+c2e5791 Merge pull request #7 from javierbyte/gh-pages
+61a79d4 Stop stats' shake.
+c7cf40f :iphone: see
+b780bb2 :white_check_mark: these are done thanks to @notwaldorf wow
+        </code></pre>
+        <pre class="fragment"><code class="hljs" data-trim>
 $ git log -n 1 # 显示最近的一个commit信息
+commit d2ddef48a916da9dd78526d004bcad5e9fa44ad5
+Author: Mu-An Chiou &lt;muan@github.com>
+Date:   Mon Feb 8 01:48:05 2016 +0800
+
+:grimacing:
         </code></pre>
       </section>
 
       <section>
-        <h2>查找题为"xxxx"的commit</h2>
+        <p>也可以结合多个命令一起使用</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git log --oneline -n 5 # 显示最近的5个commit的简要信息
+d2ddef4 :grimacing:
+e4c78a2 ☔
+a3dcc60 Add a set
+1ba3c81 Up native emoji font-size
+2b8f14a Merge pull request #16 from francisfuzz/patch-1
+        </code></pre>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+* d2ddef4 - (HEAD -> gh-pages, origin/gh-pages, origin/HEAD) :grimacing: (5 months ago) &lt;Mu-An Chiou>
+* e4c78a2 - ☔ (5 months ago) &lt;Mu-An Chiou>
+* a3dcc60 - Add a set (5 months ago) &lt;Mu-An Chiou>
+* 1ba3c81 - Up native emoji font-size (5 months ago) &lt;Mu-An Chiou>
+*   2b8f14a - Merge pull request #16 from francisfuzz/patch-1 (7 months ago) &lt;Mu-An Chiou>
+|\
+| * 03f873b - (docs) correct typo (7 months ago) &lt;Francis>
+|/
+* 2707be9 - Add link to GitHub (8 months ago) &lt;Mu-An Chiou>
+* b76a7d6 - @jsstrn did this! :tada: (8 months ago) &lt;Mu-An Chiou>
+*   d983f5f - Merge pull request #15 from jsstrn/gh-pages (8 months ago) &lt;Mu-An Chiou>
+|\
+| * 14c88f7 - Add selection for different emoji sets (8 months ago) &lt;jsstrn>
+|/
+*   b272295 - Merge pull request #12 from eush77/restart-key (8 months ago) &lt;Mu-An Chiou>
+</code></pre>
+        <aside class="notes">
+          $ git config --global alias.st status
+          $ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+          or add a section in global git config file:
+          [alias]
+          lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        </aside>
+      </section>
+
+      <section>
+        <p>查找题为"Rearrange readme sections"的commit</p>
       </section>
     </section>
 
     <section>
-      <h2>查看某一commit的具体内容</h2>
-      <p>git show xxxx</p>
+      <section>
+        <h2>查看某一commit的具体内容</h2>
+        <p>git show commit-id</p>
+      <pre class="fragment"><code class="hljs" data-trim>
+$ git show a3dcc60
+commit a3dcc600deee31309acaf2676ab6bfe5d7322e6d
+Author: Mu-An Chiou &lt;muan@github.com>
+Date:   Sun Feb 7 16:42:11 2016 +0800
+
+Add a set
+
+diff --git a/index.html b/index.html
+index 1e1a141..345fef0 100644
+--- a/index.html
++++ b/index.html
+@@ -284,7 +284,8 @@
+&lt;option value="&lt;U+1F423> &lt;U+1F4A3> &lt;U+1F6A7> ◻️">&lt;U+1F423> &lt;U+1F4A3> &lt;U+1F6A7>&lt;/option>
+&lt;option value="&lt;U+1F370> &lt;U+1F47E> &lt;U+1F4CC> ◻️">&lt;U+1F370> &lt;U+1F47E> &lt;U+1F4CC>&lt;/option>
+&lt;option value="&lt;U+1F337> ⚡️ &lt;U+1F41E> ◻️">&lt;U+1F337> ⚡️ &lt;U+1F41E>&lt;/option>
+-         &lt;option value="&lt;U+2B55>️ &lt;U+274C> &lt;U+2757>️ ◻️">&lt;U+2B55>️ &lt;U+274C> &lt;U+2757>️&lt;/option>
++         &lt;option value="&lt;U+2B55>️ &lt;U+274C> &lt;U+2757>️ ✖️️">&lt;U+2B55>️ &lt;U+274C> &lt;U+2757>️ ✖️&lt;/option>
++         &lt;option value="☀ ⚡ ☂ ☁️"> ☀ ⚡ ☂ ☁️&lt;/option>
+&lt;/select>
+&lt;button class="js-popup-new-game btn">Restart Game&lt;/button>
+&lt;/div>
+      </code></pre>
+      </section>
+
+      <section>
+        <p>Commit "(docs) correct typo" 修改了哪个typo?</p>
+      </section>
     </section>
 
     <section>
-      <h2>比较版本变化</h2>
-      <p>git diff v1..v2</p>
+      <section>
+        <h2>比较版本变化</h2>
+        <p>git diff v1..v2</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git diff 1ba3c..a3dcc60
+diff --git a/index.html b/index.html
+index 1e1a141..345fef0 100644
+--- a/index.html
++++ b/index.html
+@@ -284,7 +284,8 @@
+&lt;option value="&lt;U+1F423> &lt;U+1F4A3> &lt;U+1F6A7> ◻️">&lt;U+1F423> &lt;U+1F4A3> &lt;U+1F6A7>&lt;/option>
+&lt;option value="&lt;U+1F370> &lt;U+1F47E> &lt;U+1F4CC> ◻️">&lt;U+1F370> &lt;U+1F47E> &lt;U+1F4CC>&lt;/option>
+&lt;option value="&lt;U+1F337> ⚡️ &lt;U+1F41E> ◻️">&lt;U+1F337> ⚡️ &lt;U+1F41E>&lt;/option>
+-         &lt;option value="&lt;U+2B55>️ &lt;U+274C> &lt;U+2757>️ ◻️">&lt;U+2B55>️ &lt;U+274C> &lt;U+2757>️&lt;/option>
++         &lt;option value="&lt;U+2B55>️ &lt;U+274C> &lt;U+2757>️ ✖️️">&lt;U+2B55>️ &lt;U+274C> &lt;U+2757>️ ✖️&lt;/option>
++         &lt;option value="☀ ⚡ ☂ ☁️"> ☀ ⚡ ☂ ☁️&lt;/option>
+&lt;/select>
+&lt;button class="js-popup-new-game btn">Restart Game&lt;/button>
+&lt;/div>
+        </code></pre>
 
-      <aside class="notes">
-        非git环境下的diff.
-        FC on Win, diff for linux & mac
-      </aside>
+        <aside class="notes">
+          非git环境下的diff.
+          FC on Win, diff for linux & mac
+        </aside>
+      </section>
+
+      <section>
+        <p>包括多个commits的diff</p>
+        <pre><code data-trim>
+$ git diff b76a..03f87
+diff --git a/README.md b/README.md
+index 409d5a5..49761fc 100644
+--- a/README.md
++++ b/README.md
+@@ -4,7 +4,7 @@
+
+- Left click to step on a spot
+- Right click to mark a spot as a bomb
+-- Double clcik to open all 8 spots nearby a target (except ones already marked as bombs using right clicks)
++- Double click to open all 8 spots nearby a target (except ones already marked as bombs using right clicks)
+
+**This is a work in progress**
+
+diff --git a/index.html b/index.html
+index ef87916..19b9f62 100644
+--- a/index.html
++++ b/index.html
+@@ -189,7 +189,6 @@
+        padding: 8px 10px 5px;
+        display: table-cell;
+        text-align: center;
+-        font-family: "Exo 2", sans-serif;
+}
+
+.stat:after {
+@@ -250,6 +249,19 @@
+color: #999;
+font-size: 0.65em;
+}
++
++      .stat,
++      .link-to-github {
++        font-family: "Exo 2", sans-serif;
++      }
++
++      .link-to-github {
++        margin: 40px auto;
++        display: block;
++        font-size: 12px;
++        color: #08c;
++        text-decoration: none;
++      }
+        &lt;/style>
+        &lt;/head>
+        &lt;body>
+        @@ -287,7 +299,7 @@
+        &lt;div title="TIME" id="timer" class="stat flex-cell">0&lt;/div>
+       &lt;/div>
+     &lt;/div>
+-    &lt;br>
++    &lt;a href="https://github.com/muan/emoji-minesweeper" class="link-to-github">[Code]&lt;/a>
+
+      &lt;script>
+      var emojiset = document.getElementById('emojiset').value.split(' ')
+        </code></pre>
+      </section>
+
     </section>
 
     <section>
@@ -364,10 +591,15 @@ $ git log -n 1 # 显示最近的一个commit信息
     </section>
 
     <section>
+      <h2>切换版本</h2>
+      <p>git checkout</p>
+    </section>
+
+    <section>
       <h2>Repository是什么</h2>
     </section>
 
-    <!--// 本地操作部分-->
+    <!--// 本地读写操作部分-->
     <section>
       <h2>初始化版本库</h2>
     </section>
@@ -403,6 +635,11 @@ $ git log -n 1 # 显示最近的一个commit信息
 
     <section>
       <h2>Rebase分支</h2>
+    </section>
+
+    <section>
+      <h2>在多分支间重用代码</h2>
+      <p>git cherry-pick</p>
     </section>
 
     <section>
@@ -458,6 +695,7 @@ $ git log -n 1 # 显示最近的一个commit信息
           <!--<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">-->
         <!--</a>-->
         <span>
+          <!--315 x 225-->
           <img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
           <img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
           <img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
@@ -621,7 +859,7 @@ $ git log -n 1 # 显示最近的一个commit信息
 
     <section>
       <h2>Pretty Code</h2>
-					<pre><code class="hljs" data-trim contenteditable>
+        <pre><code class="hljs" data-trim contenteditable>
             function linkify( selector ) {
             if( supports3DTransforms ) {
 
