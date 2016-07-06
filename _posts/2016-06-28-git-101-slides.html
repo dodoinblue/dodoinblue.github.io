@@ -450,6 +450,13 @@ $ git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
           lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
         </aside>
       </section>
+      <section>
+        <p>git alias</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git config --global alias.st status
+$ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+        </code></pre>
+      </section>
 
       <section>
         <p>查找题为"Rearrange readme sections"的commit</p>
@@ -579,59 +586,341 @@ font-size: 0.65em;
         </code></pre>
       </section>
 
+      <section>
+        <p>从commit "Up native emoji font-size" 到最新的版本之间, 一共修改了几个文件, 几行增加, 几行删减?</p>
+      </section>
+
     </section>
 
-    <section>
-      <p>git diff 和 git show 看到的内容很相像?</p>
-      <br>
-      <p class="fragment">git存储的是文件的变化,而不是不同版本的完整文件</p>
-      <aside class="notes">
-        因此, git存储文本文件比较有效率. 图片,视频,3d模型等二进制文件则每次变化都存储完整文件.
-        解决的办法之一是git ignore.
-      </aside>
-    </section>
+    <!--<section>-->
+      <!--<p>git diff 和 git show 看到的内容很相像?</p>-->
+      <!--<br>-->
+      <!--<p class="fragment">git存储的是文件的变化,而不是不同版本的完整文件</p>-->
+      <!--<aside class="notes">-->
+        <!--因此, git存储文本文件比较有效率. 图片,视频,3d模型等二进制文件则每次变化都存储完整文件.-->
+        <!--解决的办法之一是git ignore.-->
+      <!--</aside>-->
+    <!--</section>-->
 
     <section>
       <h2>切换版本</h2>
       <p>git checkout</p>
+      <p>看一下最新的版本和"Add a set"之前有什么区别?</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git checkout 1ba3c81
+        </code></pre>
+      <aside class="notes">
+        运行一下index.html看看有什么不同.
+      </aside>
     </section>
 
     <section>
-      <h2>Repository是什么</h2>
+      <section>
+        <h2>git命令帮助</h2>
+        <p>git的帮助文档十分完善, 可以用git --help或 man git查看</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git --help # or
+$ man git
+        </code></pre>
+        <p class="fragment">对于子命令, 也可以用同样的方法查看</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git log --help
+$ man git-log
+        </code></pre>
+      </section>
     </section>
 
     <!--// 本地读写操作部分-->
     <section>
-      <h2>初始化版本库</h2>
+      <h2>BASH 101</h2>
+      <ul>
+        <li class="fragment">cd folder_name</li>
+        <li class="fragment">ls [-a]</li>
+        <li class="fragment">echo "hello world"</li>
+        <li class="fragment">>></li>
+        <li class="fragment">cat file_name.txt</li>
+        <li class="fragment">mkdir dir_name</li>
+      </ul>
+
+      <p class="fragment">按'tab'键自动补全命令/文件名</p>
     </section>
 
     <section>
-      <h2>查看版本库状态</h2>
+      <section>
+        <h2>初始化版本库</h2>
+      <pre class="fragment"><code class="hljs" data-trim>
+$ mkdir todo-list
+$ cd todo-list
+$ git log
+      </code></pre>
+      <pre class="fragment"><code class="hljs" data-trim>
+        fatal: Not a git repository (or any of the parent directories): .git
+      </code></pre>
+      </section>
+      <section>
+        <p>新目录的目录结构</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ ls
+$ ls -a
+        </code></pre>
+        <pre class="fragment"><code class="hljs" data-trim>
+.   ..
+        </code></pre>
+      </section>
+      <section data-background="{{site.baseurl}}/content_image/git.101.slides/tent.jpg">
+        <p>git init</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git init
+Initialized empty Git repository in /Users/Charles/repository/todo-list/.git/
+        </code></pre>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ ls -a
+.   ..  .git
+        </code></pre>
+      </section>
     </section>
 
     <section>
-      <h2>Staging Area 缓存区</h2>
+      <section>
+        <h2>查看版本库状态</h2>
+        <p>git status</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git status
+
+On branch master
+
+Initial commit
+
+nothing to commit (create/copy files and use "git add" to track)
+        </code></pre>
+      </section>
+      <section>
+        <p>查看emoji-minesweeper版本库的状态, 在什么分支上, 有哪些文件需要commit?</p>
+      </section>
+      <section>
+        <p>当前版本库Todo-List的log是什么样的?</p>
+      </section>
+      <section>
+
+
+      </section>
     </section>
 
     <section>
-      <h2>Commit changes 提交改动</h2>
+      <section>
+        <p>对版本库做一些修改. </p>
+        <p>写一个readme文件</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ echo "# Todo List" >> Readme.md
+$ git status
+
+On branch master
+
+Initial commit
+
+Untracked files:
+(use "git add &lt;file>..." to include in what will be committed)
+
+Readme.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+        </code></pre>
+      </section>
+      <section>
+        <p>git log会看到commit记录么?</p>
+      </section>
     </section>
 
     <section>
-      <h2>工作区</h2>
+      <section>
+        <h2>Staging Area 缓存区</h2>
+      <pre class="fragment"><code class="hljs" data-trim>
+$ git add Readme.md
+$ git status
+      </code></pre>
+      <pre class="fragment"><code class="hljs" data-trim>
+On branch master
+
+Initial commit
+
+Changes to be committed:
+(use "git rm --cached &lt;file>..." to unstage)
+
+new file:   Readme.md
+      </code></pre>
+      </section>
+      <section>
+        <p>git log会看到commit记录么?</p>
+      </section>
     </section>
 
     <section>
-      <h2>分支</h2>
-      注意工作区的文件变化
+      <section>
+        <h2>Commit changes 提交改动</h2>
+        <p>git commit</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+          $ git commit
+        </code></pre>
+          <p class="fragment">
+            VIM 编辑器 101</p>
+        <ul class="fragment">
+          <li>i - 编辑模式</li>
+          <li>ESC - 退出编辑模式/命令模式</li>
+          <li>w - Save</li>
+          <li>q - 退出</li>
+        </ul>
+      </section>
+      <section>
+        <p>设置你的名字</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+        </code></pre>
+      </section>
+      <section>
+        <h2>commit message的书写要求</h2>
+        <pre class="fragment"><code class="hljs" data-trim>
+TITLE(小于65字符)
+(空行)
+DETAIL
+        </code></pre>
+        <ul class="fragment">
+          <li>标题简要描述所修改的问题</li>
+          <li>一定要空行. 空行是git区别标题和正文的方式</li>
+          <li>正文可以详细描述一下问题解决的方法. 有要求的话可以引用BugId, TaskId或者FeatureId, 方便项目跟踪.</li>
+        </ul>
+      </section>
+      <section>
+        <p>git log会看到什么?</p>
+        <p class="fragment">git status会看到什么?</p>
+      </section>
     </section>
 
     <section>
+      <section>
+        <h2>工作区 Vs. 缓存区 Vs. Commit</h2>
+        <ul class="fragment">
+          <li>对文件系统的改动, 首先会被记录在工作区, 作为Unstaged Chanages或者Untracked Files</li>
+          <li>一个Commit, 对于git来说是一个存储记录.</li>
+          <li>缓存区是在工作区和Commit记录之间的缓冲. 可以有选择的将一部分文件系统改动添加进缓存区, 让Commit更灵活</li>
+          <li>Commit时可以写描述, 方便区分和回忆改动的内容和目的</li>
+        </ul>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>分支</h2>
+        <p>查看分支状态</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git branch
+* master
+        </code></pre>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>新建分支</h2>
+        <p>git branch branch_name</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git branch todo
+$ git branch
+        </code></pre>
+        <pre class="fragment"><code class="hljs" data-trim>
+* master
+  todo
+        </code></pre>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>切换分支</h2>
+        <p>git checkout branch_name</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git checkout todo
+Switched to branch 'todo'
+        </code></pre>
+      </section>
+      <section>
+        <p>branch状态是什么样的?</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git branch
+  master
+* todo
+        </code></pre>
+      </section>
+      <section>
+        <p>新建并且切换到新分支</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git checkout -b new_branch
+        </code></pre>
+      </section>
+      <sectoin>
+        <p>emoji-minesweeper的分支状态是什么样的?</p>
+        <p class="fragment">怎么才能恢复会初始状态?</p>
+      </sectoin>
+    </section>
+
+    <section>
+      <section>
       <h2>Reachability</h2>
+      <p>Let's make some commits</p>
+      <pre class="fragment"><code class="hljs" data-trim>
+$ git checkout master
+$ echo "" >> Readme.md
+$ echo "* Buy milk" >> Readme.md
+$ git add Readme.md
+$ git commit -m "Add todo item: buy milk"
+$ echo "* Buy orange" >> Readme.md
+$ git add Readme.md
+$ git commit -m "Mum wants some orange"
+$ git checkout todo
+$ echo "" >> Readme.md
+$ echo "* Prepare git training" >> Readme.md
+$ git add Readme.md
+$ git commit -m "My work: Git training"
+      </code></pre>
+      </section>
+      <section>
+        <p>当前版本库的各分支commit状态</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git lg --all
+* 91292e5 - (HEAD -> todo) training (24 minutes ago) &lt;Charles Liu>
+| * bd36223 - (master) orange (26 minutes ago) &lt;Charles Liu>
+| * e4a2762 - Milk (26 minutes ago) &lt;Charles Liu>
+|/
+* a2ce87d - Add Readme Title (27 minutes ago) &lt;Charles Liu>
+        </code></pre>
+      </section>
+      <section>
+        <p>从C点可以追溯到哪些Commit?</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+      A---B---C topic
+     /
+D---E---F---G master
+        </code></pre>
+      </section>
+      <section>
+        <p>git lg --all命令中, --all的作用是什么?</p>
+      </section>
     </section>
 
     <section>
-      <h2>合并分支</h2>
+      <section>
+        <h2>合并分支</h2>
+        <p>先做个新分支</p>
+<pre class="fragment"><code class="hljs" data-trim>
+$ git checkout -b soy-milk
+$ # Change milk to soy-milk
+$ git add .
+$ git commit "charles wants soy-milk"
+</code></pre>
+      </section>
+      <section>
+        <h2>fast-forward merge</h2>
+      </section>
     </section>
 
     <section>
@@ -645,6 +934,12 @@ font-size: 0.65em;
 
     <section>
       <h2>冲突解决</h2>
+    </section>
+
+    <section>
+      <section>
+        <h2>删除分支</h2>
+      </section>
     </section>
 
 
