@@ -319,7 +319,7 @@ $ git clone git@github.com:dodoinblue/emoji-minesweeper.git
         <br>
 
       <pre class="fragment"><code class="hljs" data-trim>
-$ cd reveal.js
+$ cd emoji-minesweeper
 $ git log # 不需网络
       </code></pre>
       </section>
@@ -452,7 +452,7 @@ $ git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
           lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
         </aside>
       </section>
-      <section>
+      <section id="git-alias">
         <p>git alias</p>
         <pre class="fragment"><code class="hljs" data-trim>
 $ git config --global alias.st status
@@ -974,6 +974,22 @@ $ git lg --all
       </section>
       <section>
         <h2>fast-forward merge</h2>
+        <p>分支初始状态</p>
+        <pre class="fragment"><code class="hljs">
+      A---B---C topic
+     /
+D---E master
+        </code></pre>
+<p class="fragment">普通合并</p>
+          <pre class="fragment"><code class="hljs">
+      A---B---C topic
+     /         \
+D---E --------- M  master
+          </code></pre>
+<p class="fragment">Fast-Forward合并</p>
+<pre class="fragment"><code class="hljs">
+D---E---A---B---C master topic
+        </code></pre>
       </section>
     </section>
 
@@ -1014,10 +1030,114 @@ A  -  B  -  C  -  D  -  E - dev
     </section>
 
     <section>
-      <h2>冲突解决</h2>
-      <blockquote>
-        git mergetool
-      </blockquote>
+      <section>
+        <h2>冲突解决</h2>
+        <blockquote>
+          git mergetool
+        </blockquote>
+<pre class="fragment"><code class="hljs">
+File 1  |  File 2
+  A     |     A
+  C     |     B
+  D'    |     C
+  F     |     D''
+        |     F
+</code></pre>
+        <p class="fragment">Original File</p>
+      <pre class="fragment"><code class="hljs">
+A B C D E F
+      </code></pre>
+        <p class="fragment">最终文件里应该包括什么?</p>
+      </section>
+      <section>
+        <h2>安装配置Kdiff3</h2>
+        <p>Mac & Windows</p>
+        <p style="text-align: left">
+          <small>Download: https://sourceforge.net/projects/kdiff3/files/kdiff3/0.9.98/
+          <br>安装路径最好不要有空格
+          <br>在${HOME}/.gitconfig文件中添加下述配置:</small>
+        </p>
+        <pre><code class="hljs" data-trim>
+[merge]
+    tool = kdiff3
+[mergetool "kdiff3"]
+    path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+           (/cygdrive/c/kdiff3/kdiff3.exe)
+        </code></pre>
+        <p>Ubuntu</p>
+        <pre><code class="hljs" data-trim>
+$ sudo apt-get install kdiff3
+$ vim ~/.gitconfig
+
+# Add following:
+[merge]
+    tool = kdiff3
+        </code></pre>
+      </section>
+      <section>
+        <h2>解决一个冲突</h2>
+        <p>在todo-list代码库中</p>
+        <pre><code class="hljs" data-trim>
+$ git checkout todo
+$ git checkout master
+$ git merge todo
+Auto-merging Readme.md
+CONFLICT (content): Merge conflict in Readme.md
+Automatic merge failed; fix conflicts and then commit the result.
+        </code></pre>
+
+        <pre><code class="hljs" data-trim>
+$ git mergetool
+        </code></pre>
+      </section>
+      <section>
+        <img width="320" height="183"
+             style="border-width: 0px; background: transparent;"
+             data-src="{{site.baseurl}}/content_image/git.101.slides/kdiff3_conflicts_count.png"
+             alt="gitk">
+        <br>
+        <img width="640" height="480"
+             style="border-width: 0px; background: transparent;"
+             data-src="{{site.baseurl}}/content_image/git.101.slides/kdiff3_workspace.png"
+             alt="gitk">
+      </section>
+      <section>
+        <p>选C, 选B, 保存退出</p>
+        <pre><code class="hljs" data-trim>
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+All conflicts fixed but you are still merging.
+(use "git commit" to conclude merge)
+
+Changes to be committed:
+
+    modified:   Readme.md
+
+Untracked files:
+(use "git add &lt;file>..." to include in what will be committed)
+
+    Readme.md.orig
+        </code></pre>
+        <p>
+          执行rm Readme.md.orig删除生成的备份文件<br>
+          或者执行git clean -f删除所有untracked files
+        </p>
+      </section>
+      <section>
+        <pre><code class="hljs" data-trim>
+$ git commit
+# 跳转到VIM, 使用默认Commit Message. :wq退出
+$ git lg
+*   b637fe8 - (HEAD -> master) Merge branch 'todo' (8 seconds ago) &lt;Charles Liu>
+|\
+| * 14e2113 - (origin/todo, todo) training (20 hours ago) &lt;Charles Liu>
+* | 2e64ee8 - (origin/master, origin/HEAD) orange (20 hours ago) &lt;Charles Liu>
+* | 65a9ca6 - milk (20 hours ago) &lt;Charles Liu>
+|/
+* 358c3a0 - (origin/bbb) 添加一个标题 (21 hours ago) &lt;Charles Liu>
+        </code></pre>
+      </section>
     </section>
 
     <section>
@@ -1032,16 +1152,30 @@ A  -  B  -  C  -  D  -  E - dev
 
 
     <!--// 联网操作部分/github, gitlab合作部分-->
+    <secton>
+      <!--<section>-->
+        <!--<h2>上传代码到github/gitlab</h2>-->
+        <!--<p>在gitlab上创建一个新的项目</p>-->
+      <!--</section>-->
+
+      <!--<section>-->
+        <!--<h2>添加一个remote</h2>-->
+      <!--</section>-->
+
+    </secton>
     <section>
       <h2>与他人共享代码</h2>
     </section>
 
-    <section>
-      <h2>添加一个remote</h2>
-    </section>
+
 
     <section>
       <h2>保持本地和remote的同步</h2>
+    </section>
+
+    <section>
+      <h2>ssh_keys</h2>
+      https://help.github.com/articles/generating-an-ssh-key/
     </section>
 
     <section>
