@@ -812,6 +812,9 @@ DETAIL
       <section>
         <h2>分支</h2>
         <p>查看分支状态</p>
+        <blockquote>
+          git branch
+        </blockquote>
         <pre class="fragment"><code class="hljs" data-trim>
 $ git branch
 * master
@@ -822,7 +825,9 @@ $ git branch
     <section>
       <section>
         <h2>新建分支</h2>
-        <p>git branch branch_name</p>
+        <blockquote>
+          git branch branch_name
+        </blockquote>
         <pre class="fragment"><code class="hljs" data-trim>
 $ git branch todo
 $ git branch
@@ -837,7 +842,9 @@ $ git branch
     <section>
       <section>
         <h2>切换分支</h2>
-        <p>git checkout branch_name</p>
+        <blockquote>
+          git checkout branch_name
+        </blockquote>
         <pre class="fragment"><code class="hljs" data-trim>
 $ git checkout todo
 Switched to branch 'todo'
@@ -857,16 +864,24 @@ $ git branch
 $ git checkout -b new_branch
         </code></pre>
       </section>
-      <sectoin>
+      <section>
         <p>emoji-minesweeper的分支状态是什么样的?</p>
         <p class="fragment">怎么才能恢复会初始状态?</p>
-      </sectoin>
+      </section>
     </section>
 
     <section>
       <section>
-      <h2>Reachability</h2>
-      <p>Let's make some commits</p>
+        <h2>Reachability 可到达性</h2>
+        <pre class="fragment"><code class="hljs">
+                A---B---C topic
+              /
+          D---E---F---G master
+        </code></pre>
+        <p class="fragment">从C点可以追溯到B, A, E, D点</p>
+      </section>
+      <section>
+      <p>实际的例子</p>
       <pre class="fragment"><code class="hljs" data-trim>
 $ git checkout master
 $ echo "" >> Readme.md
@@ -893,15 +908,9 @@ $ git lg --all
 |/
 * a2ce87d - Add Readme Title (27 minutes ago) &lt;Charles Liu>
         </code></pre>
+        <p class="fragment">从training点可以追溯到哪些commit?</p>
       </section>
-      <section>
-        <p>从C点可以追溯到哪些Commit?</p>
-        <pre class="fragment"><code class="hljs" data-trim>
-      A---B---C topic
-     /
-D---E---F---G master
-        </code></pre>
-      </section>
+
       <section>
         <p>git lg --all命令中, --all的作用是什么?</p>
       </section>
@@ -910,13 +919,59 @@ D---E---F---G master
     <section>
       <section>
         <h2>合并分支</h2>
+        <blockquote>
+          git merge branch_name (to current branch)
+        </blockquote>
+        <pre class="fragment"><code class="hljs">
+      A---B---C topic
+     /         \
+D---E---F---G---H master
+        </code></pre>
+      </section>
+      <section>
         <p>先做个新分支</p>
 <pre class="fragment"><code class="hljs" data-trim>
 $ git checkout -b soy-milk
 $ # Change milk to soy-milk
 $ git add .
 $ git commit "charles wants soy-milk"
+$ git checkout master
+$ echo "buy apple" >> Readme.md
+$ git add .
+$ git commit -m "buy apple"
+$ git lg --all
 </code></pre>
+<pre class="fragment"><code class="hljs" data-trim>
+* 59f6d63 - (HEAD -> master) buy apple(6 seconds ago) &lt;Charles Liu>
+| * f46bd2d - (soy-milk) Charles wants soy milk (2 minutes ago) &lt;Charles Liu>
+|/
+* bd36223 - orange (3 hours ago) &lt;Charles Liu>
+* e4a2762 - Milk (3 hours ago) &lt;Charles Liu>
+| * 91292e5 - (todo) training (3 hours ago) &lt;Charles Liu>
+|/
+* a2ce87d - Add Readme Title (3 hours ago) &lt;Charles Liu>
+</code></pre>
+      </section>
+      <section>
+        <p>合并soy-milk到master</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git checkout master
+$ git merge soy-milk
+        </code></pre>
+        <p class="fragment">跳转到Commit Message编辑界面, 用默认Message.</p>
+        <pre class="fragment"><code class="hljs" data-trim>
+$ git lg --all
+*   7c53e8c - (HEAD -> master) Merge branch 'soy-milk' (15 seconds ago) &lt;Charles Liu>
+|\
+| * f46bd2d - (soy-milk) Charles wants soy milk (14 minutes ago) &lt;Charles Liu>
+* | ad76997 - buy apple (34 seconds ago) &lt;Charles Liu>
+|/
+* bd36223 - orange (3 hours ago) &lt;Charles Liu>
+* e4a2762 - Milk (3 hours ago) &lt;Charles Liu>
+| * 91292e5 - (todo) training (3 hours ago) &lt;Charles Liu>
+|/
+* a2ce87d - Add Readme Title (3 hours ago) &lt;Charles Liu>
+        </code></pre>
       </section>
       <section>
         <h2>fast-forward merge</h2>
@@ -925,20 +980,53 @@ $ git commit "charles wants soy-milk"
 
     <section>
       <h2>Rebase分支</h2>
+      <p>git rebase ref_branch_name</p>
+      <pre class="fragment"><code class="hljs">
+Assume the following history exists and the current branch is "topic":
+                     A---B---C topic
+                    /
+               D---E---F---G master
+
+From this point, the result of either of the following commands:
+
+           git rebase master
+           git rebase master topic
+
+would be:
+
+                             A'--B'--C' topic
+                            /
+               D---E---F---G master
+      </code></pre>
     </section>
 
     <section>
       <h2>在多分支间重用代码</h2>
-      <p>git cherry-pick</p>
+      <blockquote>
+        git cherry-pick commit-id
+      </blockquote>
+          <pre class="fragment"><code class="hljs">
+A  -  B  -  C  -  D  -  E - dev
+              \
+      |        \ cherry-pick
+                \
+      \ -  X  -  C' - release
+          </code></pre>
     </section>
 
     <section>
       <h2>冲突解决</h2>
+      <blockquote>
+        git mergetool
+      </blockquote>
     </section>
 
     <section>
       <section>
         <h2>删除分支</h2>
+        <blockquote>
+          git branch -d branch_name [--force]
+        </blockquote>
       </section>
     </section>
 
