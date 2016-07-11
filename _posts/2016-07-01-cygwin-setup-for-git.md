@@ -30,7 +30,8 @@ Cygwin在Windows系统上提供了一套类Unix环境, 可以运行常见的Unix
 ![][img-cygwin6]
 
 可以通过上面的search文本框来找到我们需要的包.
-要想运行git, 需要安装git, openssh, vim
+要想运行git, 需要安装git, openssh, vim.
+要选择想安装的包, 可以点击对应的skip位置, skip会变成相应的版本号, 这样就是选中了包.
 ![][img-cygwin7]
 
 下一步, 安装向导从镜像站下载所需的应用包.
