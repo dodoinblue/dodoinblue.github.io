@@ -23,6 +23,8 @@ date: 2016-06-23
 
   <!-- Theme used for syntax highlighting of code -->
   <link rel="stylesheet" href="/reveal/lib/css/zenburn.css">
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+
 
   <!-- Printing and PDF exports -->
   <script>
@@ -1216,6 +1218,13 @@ $ git lg
 
     transition: 'slide', // none/fade/slide/convex/concave/zoom
 
+    chalkboard: {
+      // optionally load pre-recorded chalkboard drawing from file
+      src: null,
+      toggleChalkboardButton: { left: "70px", bottom: "30px", top: "auto", right: "auto" },
+      toggleNotesButton: { left: "110px", bottom: "30px", top: "auto", right: "auto" }
+    },
+
     // More info https://github.com/hakimel/reveal.js#dependencies
     dependencies: [
       { src: '/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -1224,8 +1233,17 @@ $ git lg
       { src: '/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
       { src: '/reveal/plugin/zoom-js/zoom.js', async: true },
       { src: '/reveal/plugin/notes/notes.js', async: true },
-      { src: '/bower_components/reveal.js-menu/menu.js' }
-    ]
+      { src: '/bower_components/reveal.js-menu/menu.js' },
+      { src: '/reveal/plugin/chalkboard/chalkboard.js' }
+    ],
+
+    keyboard: {
+      67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+      66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+      46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+      8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+//      68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+    }
   });
 
 </script>
