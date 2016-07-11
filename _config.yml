@@ -7,8 +7,8 @@ signoff:          Charles
 #google_analytics: # set tracking, remove from /javascripts/basic.js if unwanted.
 
 links:
-  - name:         About
-    url:          /about
+#  - name:         About
+#    url:          /about
   - name:         Blog
     url:          /index.html
   - name:         Email
