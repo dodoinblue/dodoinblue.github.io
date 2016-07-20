@@ -12,6 +12,9 @@
   stroke: #81B1DB;
   stroke-width: 1px;
 }
+.arrowheadPath {
+  fill: lightgrey;
+}
 .edgePath .path {
   stroke: lightgrey;
 }

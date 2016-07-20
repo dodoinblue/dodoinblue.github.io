@@ -12,6 +12,9 @@
   stroke: #CCCCFF;
   stroke-width: 1px;
 }
+.arrowheadPath {
+  fill: #333333;
+}
 .edgePath .path {
   stroke: #333333;
 }

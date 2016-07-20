@@ -13,6 +13,9 @@
   stroke: #13540c;
   stroke-width: 1px;
 }
+.arrowheadPath {
+  fill: green;
+}
 .edgePath .path {
   stroke: green;
   stroke-width: 1.5px;
