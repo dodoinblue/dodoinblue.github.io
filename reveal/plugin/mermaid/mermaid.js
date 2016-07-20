@@ -15,73 +15,60 @@
   }
 
   function getDataElem(slide) {
-    var children = slide.getElementsByClassName('diagram-data');
-    var spans = Array.prototype.filter.call(children, function(element) {
-      return element.nodeName === 'SPAN';
-    });
-
-    var diagramSource = slide.getAttribute('data-diagram-source');
-    if (diagramSource) {
-      var diagramSlides = document.getElementsByClassName('diagram-slide');
-
-      var sourceSlides = Array.prototype.filter.call(diagramSlides, function(slide) {
-        return slide.getAttribute('data-state') === diagramSource;
-      });
-
-      return getDataElem(sourceSlides[0]);
-    } else {
-      return spans[0];
-    }
-  }
-
-  function getDisplayDiv(slide) {
-    var children = slide.getElementsByClassName('diagram-display');
+    var children = slide.getElementsByClassName('mermaid');
     var divs = Array.prototype.filter.call(children, function(element) {
       return element.nodeName === 'DIV';
     });
 
-    return divs[0];
-  }
-
-  function isDiagramSlide(slide) {
-    return slide.classList.contains("diagram-slide");
+    return divs;
   }
 
   function destroyDiagram(slide) {
-    if (!isDiagramSlide(slide)) { return; }
-
-    var svgDiv = getDisplayDiv(slide);
-    while (svgDiv.firstChild) {
-      svgDiv.removeChild(svgDiv.firstChild);
-    }
-    svgDiv.removeAttribute("data-processed");
+    // var svgDiv = getDisplayDiv(slide);
+    // while (svgDiv.firstChild) {
+    //   svgDiv.removeChild(svgDiv.firstChild);
+    // }
+    // svgDiv.removeAttribute("data-processed");
+    var svgDivs = getDataElem(slide);
+    svgDivs.forEach(function(svgDiv){
+      while (svgDiv.firstChild) {
+        svgDiv.removeChild(svgDiv.firstChild);
+      }
+      svgDiv.removeAttribute("data-processed");
+    });
   }
 
   function showDiagram(slide) {
-    if (!isDiagramSlide(slide)) { return; }
+    var dataElems = getDataElem(slide);
+    dataElems.forEach(function(dataElem){
+      var svgDiv = dataElem;
 
-    var dataElem = getDataElem(slide);
-    var svgDiv = getDisplayDiv(slide);
+      var config = {
+        startOnLoad: false,
+        cloneCssStyles: false
+      };
+      mermaid.init(config, svgDiv);
 
-    svgDiv.innerHTML = dataElem.innerHTML;
+      // Fix up svg element size
+      var svgElem = svgDiv.getElementsByTagName("svg")[0];
+      if (svgElem) {
+        fixUpSvgSize(svgDiv, svgElem);
+      }
+    });
 
-    mermaid.flowchartConfig
-    var config = {};
-    mermaid.init(config, svgDiv);
-
-    // Fix up svg element size
-    var svgElem = svgDiv.getElementsByTagName("svg")[0]; 
-    if (svgElem) {
-      fixUpSvgSize(svgDiv, svgElem);
-    }
-    
   }
 
   Reveal.addEventListener( 'slidechanged', function( event ) {
     if (event.previousSlide) {
-      destroyDiagram(event.previousSlide);
+      // destroyDiagram(event.previousSlide);
     }
 
+    if (event.currentSlide) {
+      showDiagram(event.currentSlide);
+    }
+  });
+
+  Reveal.addEventListener('ready', function( event ) {
     if (event.currentSlide) {
       showDiagram(event.currentSlide);
     }

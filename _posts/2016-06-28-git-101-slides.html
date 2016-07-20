@@ -25,11 +25,13 @@ date: 2016-06-23
   <link rel="stylesheet" href="/reveal/lib/css/zenburn.css">
 
   <!-- mermaid -->
-  <link rel="stylesheet" href="/libraries/mermaid/mermaid.dark.css">
+  <link rel="stylesheet" href="/libraries/mermaid/mermaid.forest.css">
   <script src="/libraries/mermaid/mermaid.js"></script>
   <script>
-    mermaid.initialize({startOnLoad:true});
-    console.log("mermaid initialized.");
+    mermaid.initialize({
+      startOnLoad: false,
+      cloneCssStyles: false
+    });
   </script>
 
 
@@ -1241,7 +1243,8 @@ $ git lg
       { src: '/reveal/plugin/zoom-js/zoom.js', async: true },
       { src: '/reveal/plugin/notes/notes.js', async: true },
       { src: '/bower_components/reveal.js-menu/menu.js' },
-      { src: '/reveal/plugin/chalkboard/chalkboard.js' }
+      { src: '/reveal/plugin/chalkboard/chalkboard.js' },
+      { src: '/reveal/plugin/mermaid/mermaid.js'}
     ],
 
     keyboard: {
