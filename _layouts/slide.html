@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>git 101 slides</title>
+
+  <meta name="description" content="Slides for git training">
+  <meta name="author" content="Charles Liu">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="/reveal/css/reveal.css">
+  <link rel="stylesheet" href="/reveal/css/theme/black.css" id="theme">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="/reveal/lib/css/zenburn.css">
+
+  <!-- mermaid -->
+  <link rel="stylesheet" href="/libraries/mermaid/mermaid.forest.css">
+  <script src="/libraries/mermaid/mermaid.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      cloneCssStyles: false
+    });
+  </script>
+
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal/css/print/pdf.css' : '/reveal/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+
+  <!--[if lt IE 9]>
+  <script src="/reveal/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+  <div class="slides">
+    {{content}}
+  </div>
+</div>
+
+<script src="/reveal/lib/js/head.min.js"></script>
+<script src="/reveal/js/reveal.js"></script>
+
+<script>
+
+  // More info https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+    chalkboard: {
+      // optionally load pre-recorded chalkboard drawing from file
+      src: null,
+      toggleChalkboardButton: { left: "70px", bottom: "30px", top: "auto", right: "auto" },
+      toggleNotesButton: { left: "110px", bottom: "30px", top: "auto", right: "auto" }
+    },
+
+    // More info https://github.com/hakimel/reveal.js#dependencies
+    dependencies: [
+      { src: '/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: '/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: '/reveal/plugin/zoom-js/zoom.js', async: true },
+      { src: '/reveal/plugin/notes/notes.js', async: true },
+      { src: '/bower_components/reveal.js-menu/menu.js' },
+      { src: '/reveal/plugin/chalkboard/chalkboard.js' },
+      { src: '/reveal/plugin/mermaid/mermaid.js'}
+    ],
+
+    keyboard: {
+      67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+      66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+      46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+      8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+//      68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+    }
+  });
+
+</script>
+
+</body>
+</html>

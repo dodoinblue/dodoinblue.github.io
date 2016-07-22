@@ -1,0 +1,250 @@
+---
+layout: slide
+title: git 101第一部——简介和配置
+date: 2016-06-23
+---
+<section>
+  <img width="303" height="126"
+       style="border-width: 0px; background: transparent;"
+       data-src="{{site.baseurl}}/content_image/git.101.slides/Git-Logo-White.png"
+       alt="gitk">
+  <!--<h2>Git 101</h2>-->
+  <h3>第一部分 简介和配置</h3>
+  <p>
+    <small>Created by <a href="http://supersuperstar.com">Charles Liu</a></small>
+  </p>
+</section>
+
+<section>
+  <h2>git是一个 <em><b>分布式</b></em> 的<u>版本管理</u>工具</h2>
+
+  <aside class="notes">
+    第一部分就是解释版本控制工具的功能和好处.
+  </aside>
+</section>
+
+<section style="text-align: left;">
+  <!--<blockquote>-->
+  <!--版本控制是对文档, 程序等信息集合<em>变化</em>的管理.-->
+  <!--</blockquote>-->
+  <h2>版本控制是对文档, 程序等信息集合<em style="color: red;">变化</em>的管理</h2>
+</section>
+
+<section>
+  <section>
+    <h2>版本控制的实现方式</h2>
+    <aside class="notes">
+      你可能已经在用版本管理啦! 手动, 网盘, wiki(jenkins config), git/svn
+    </aside>
+  </section>
+  <section>
+    <h2>手动存储</h2>
+    <img width="201" height="500"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/git.101.vcs.funny.png">
+  </section>
+  <section>
+    <h2>网盘存储</h2>
+    <img width="754" height="528"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/baidu_pan_history.png">
+  </section>
+  <section>
+    <h2>wiki</h2>
+    <img width="853" height="607"
+         style="border-width: 0px; background: transparent;"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/wiki_history.png">
+  </section>
+  <section>
+    <h2>cvs 或者 svn</h2>
+    <img width="768" height="559"
+         style="border-width: 0px; background: transparent;"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/RevisionGraph.SVN.png">
+  </section>
+  <section>
+    <h2>git 或者 mercury</h2>
+    <img width="768" height="559"
+         style="border-width: 0px; background: transparent;"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/git_cli.png">
+  </section>
+</section>
+
+<section>
+  <table>
+    <thead>
+    <tr>
+      <th>功能</th>
+      <th>手动</th>
+      <th>网盘</th>
+      <th>wiki</th>
+      <th>svn</th>
+      <th>git</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>任意文件格式</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>按需存储*</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>离线使用</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>多文件关联</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>备注</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <td>合作编辑</td>
+      <td>N</td>
+      <td>困难</td>
+      <td>Y**</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <small>
+    <ul>
+      <li>
+        * 与之对应的是按时自动存储
+      </li>
+      <li>
+        ** 同时编辑容易造成数据丢失
+      </li>
+
+    </ul>
+  </small>
+
+  <aside class="notes">
+    Even if you work alone you can benefit from source control. Among others, for these reasons:
+
+    You don't lose anything. I never again commented out code. I simply delete it. It doesn't clutter my screen, and it
+    isn't lost. I can recover it by checking out an old commit.
+    You can experiment at will. If it doesn't solve the problem, revert it.
+    You can look at previous versions of the code to find out when and where bugs were introduced. git bisect is great
+    in that regard.
+    More "advanced" features like branching and merging let you have multiple parallel lines of development. You can
+    work in two simultaneous features without interference and switch back and forth without much hassle.
+    You can see "what changed". This may sound basic, but that's something I find myself checking a lot. I very often
+    begin my one-man workflow with: what did I do yesterday?
+    Just go ahead and try it. Start slowly with basic features and learn others as you go. You will soon find that you
+    won't ever want to go back to "the dark ages" of no VCS.
+
+    If you want a local VCS you can setup your own subversion server (what I did in the past), but today I would
+    recommend using git. Much simpler. Simply cd to your code directory and run:
+
+    git init
+    Welcome to the club.
+
+    http://stackoverflow.com/questions/1408450/why-should-i-use-version-control
+  </aside>
+</section>
+
+<section>
+  <section>
+    <h2>git的诞生</h2>
+    <div class="fragment">
+      <!--440 × 601-->
+      <img width="267" height="357"
+           data-src="{{site.baseurl}}/content_image/git.101.slides/Linus_Torvalds.jpeg"
+           alt="Linux Torvalds">
+      <br>
+      Linus Torvalds
+    </div>
+    <aside class="notes">
+      BitKeeper的故事...
+      git的一个优势是速度很快, 感谢Linus多年的Linux内核优化经验
+      git (which means "unpleasant person" in British English slang) is named after Linus, again. 不受欢迎的人.
+    </aside>
+  </section>
+  <section>
+    <h2>开发进度...</h2>
+    <ul>
+      <li class="fragment">3 April 2005, development began</li>
+      <li class="fragment">7 April 2005, git became self-hosting</li>
+      <li class="fragment">18 April 2005, first merge of multiple branches</li>
+      <li class="fragment">29 April 2005, performance goal reached</li>
+      <li class="fragment">16 June 2005, git managed the kernel 2.6.12 release</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <section id="env_setup">
+    <h2>环境配置</h2>
+    跨平台, 支持Win, Mac, 及各种Linux发行版
+  </section>
+  <section>
+    <h2>Mac</h2>
+        <pre><code class="hljs" data-trim>
+          $ xcode-select --install
+        </code></pre>
+  </section>
+  <section>
+    <h2>Ubuntu</h2>
+        <pre><code class="hljs" data-trim>
+          $ sudo apt-get install git
+        </code></pre>
+  </section>
+
+  <section>
+    <h2>Windows</h2>
+    <!--315 × 225-->
+    <p>Git for Windows</p>
+    <img width="262" height="187"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/git_bash.png"
+         alt="git bash">
+    <img width="262" height="187"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/git_gui.png"
+         alt="git gui">
+    <img width="262" height="187"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/gitk.png"
+         alt="gitk">
+
+    <p>安装: https://git-for-windows.github.io/</p>
+  </section>
+
+  <section>
+    <h2>Windows</h2>
+    <p>cygwin (or bash for windows 10) (推荐)</p>
+    <img width="378" height="270"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/cygwin9.png"
+         alt="cygwin">
+    <!--<p>安装: https://cygwin.com/install.html</p>-->
+    <p><a href="{% post_url 2016-07-01-cygwin-setup-for-git %}">安装cygwin下的git环境</a></p>
+    <aside class="notes">
+      推荐使用命令行.
+      统一的术语便于交流
+      方便自动化脚本的编写
+      效率更高
+    </aside>
+  </section>
+</section>
