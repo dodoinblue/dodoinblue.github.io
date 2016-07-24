@@ -1,6 +1,6 @@
 ---
 layout: slide
-title: git 101第一部——简介和配置
+title: git 101 [Slides] 第一部——简介和配置
 date: 2016-06-23
 ---
 <section>
@@ -16,235 +16,311 @@ date: 2016-06-23
 </section>
 
 <section>
-  <h2>git是一个 <em><b>分布式</b></em> 的<u>版本管理</u>工具</h2>
-
-  <aside class="notes">
-    第一部分就是解释版本控制工具的功能和好处.
-  </aside>
-</section>
-
-<section style="text-align: left;">
-  <!--<blockquote>-->
-  <!--版本控制是对文档, 程序等信息集合<em>变化</em>的管理.-->
-  <!--</blockquote>-->
-  <h2>版本控制是对文档, 程序等信息集合<em style="color: red;">变化</em>的管理</h2>
+  <h2>Agenda</h2>
+  <ul>
+    <li>关于版本控制</li>
+    <li>安装git</li>
+    <li>配置git</li>
+  </ul>
 </section>
 
 <section>
-  <section>
-    <h2>版本控制的实现方式</h2>
-    <aside class="notes">
-      你可能已经在用版本管理啦! 手动, 网盘, wiki(jenkins config), git/svn
-    </aside>
-  </section>
-  <section>
-    <h2>手动存储</h2>
+  <h2>版本控制</h2>
+  <div class="fragment">
+    <blockquote style="text-align: left">版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。</blockquote>
+    <small>Source: gitbook</small>
+  </div>
+</section>
+
+<section>
+  <h2>版本控制的功能</h2>
+  <div class="fragment">
+    <h2>版本追溯</h2>
     <img width="201" height="500"
          data-src="{{site.baseurl}}/content_image/git.101.slides/git.101.vcs.funny.png">
-  </section>
+  </div>
+</section>
+
+<section>
+  <h2>按需保存</h2>
+  <div class="fragment" style='float:left;width:50%'>
+    按时自动保存
+    <div class="mermaid" height="500">
+      graph BT
+      A[1:00]-->B[1:30]
+      B-->C[2:00]
+      C-->D[2:30]
+    </div>
+  </div>
+
+  <div class="fragment" style='float:right;width:50%'>
+    按需保存
+    <div class="mermaid" height="500">
+      graph BT
+      M[初始版本]-->N[修正邮件格式错误的bug]
+      N-->O[增加微信认证功能]
+      O-->P[修改说明文档]
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>关联存储</h2>
+  <div class="fragment">
+    <div class="mermaid">
+      graph LR
+      subgraph '
+      id1["index.html<br>v1"]-->id2["index.html<br>v2"]
+      id2-->id3["index.html<br>v3"]
+      id3-->id4["index.html<br>v4"]
+      end
+      subgraph '
+      id21["style.css<br>v1"]-->id22["style.css<br>v2"]
+      id22-->id23["style.css<br>v3"]
+      id23-->id24["style.css<br>v4"]
+      end
+      subgraph '
+      id31["main.js<br>v1"]-->id32["main.js<br>v2"]
+      id32-->id33["main.js<br>v3"]
+      id33-->id34["main.js<br>v4"]
+      end
+    </div>
+  </div>
+</section>
+
+<section>
   <section>
-    <h2>网盘存储</h2>
-    <img width="754" height="528"
-         data-src="{{site.baseurl}}/content_image/git.101.slides/baidu_pan_history.png">
+    <h2>共同编辑 集中管理</h2>
+
+    <div class="fragment">
+      <img src="https://git-scm.com/book/en/v2/book/01-introduction/images/centralized.png">
+      <br><small>source: gitbook</small>
+    </div>
   </section>
+
   <section>
-    <h2>wiki</h2>
-    <img width="853" height="607"
-         style="border-width: 0px; background: transparent;"
-         data-src="{{site.baseurl}}/content_image/git.101.slides/wiki_history.png">
-  </section>
-  <section>
-    <h2>cvs 或者 svn</h2>
-    <img width="768" height="559"
-         style="border-width: 0px; background: transparent;"
-         data-src="{{site.baseurl}}/content_image/git.101.slides/RevisionGraph.SVN.png">
-  </section>
-  <section>
-    <h2>git 或者 mercury</h2>
-    <img width="768" height="559"
-         style="border-width: 0px; background: transparent;"
-         data-src="{{site.baseurl}}/content_image/git.101.slides/git_cli.png">
+    <h2>分布存储 集中管理</h2>
+    <div class="fragment">
+      <img width="500" height="650"
+           src="https://git-scm.com/book/en/v2/book/01-introduction/images/distributed.png">
+      <br><small>source: gitbook</small>
+    </div>
   </section>
 </section>
 
 <section>
-  <table>
-    <thead>
-    <tr>
-      <th>功能</th>
-      <th>手动</th>
-      <th>网盘</th>
-      <th>wiki</th>
-      <th>svn</th>
-      <th>git</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>任意文件格式</td>
-      <td>Y</td>
-      <td>Y</td>
-      <td>N</td>
-      <td>Y</td>
-      <td>Y</td>
-    </tr>
-    <tr>
-      <td>按需存储*</td>
-      <td>Y</td>
-      <td>Y</td>
-      <td>Y</td>
-      <td>Y</td>
-      <td>Y</td>
-    </tr>
-    <tr>
-      <td>离线使用</td>
-      <td>Y</td>
-      <td>N</td>
-      <td>N</td>
-      <td>N</td>
-      <td>Y</td>
-    </tr>
-    <tr>
-      <td>多文件关联</td>
-      <td>Y</td>
-      <td>N</td>
-      <td>N</td>
-      <td>Y</td>
-      <td>Y</td>
-    </tr>
-    <tr>
-      <td>备注</td>
-      <td>N</td>
-      <td>N</td>
-      <td>N</td>
-      <td>Y</td>
-      <td>Y</td>
-    </tr>
-    <tr>
-      <td>合作编辑</td>
-      <td>N</td>
-      <td>困难</td>
-      <td>Y**</td>
-      <td>Y</td>
-      <td>Y</td>
-    </tr>
-    </tbody>
-  </table>
-  <br>
-  <small>
-    <ul>
-      <li>
-        * 与之对应的是按时自动存储
-      </li>
-      <li>
-        ** 同时编辑容易造成数据丢失
-      </li>
-
-    </ul>
-  </small>
-
+  <h2>git的诞生</h2>
+  <div class="fragment">
+    <!--440 × 601-->
+    <img width="267" height="357"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/Linus_Torvalds.jpeg"
+         alt="Linux Torvalds">
+    <br>
+    Linus Torvalds
+  </div>
   <aside class="notes">
-    Even if you work alone you can benefit from source control. Among others, for these reasons:
-
-    You don't lose anything. I never again commented out code. I simply delete it. It doesn't clutter my screen, and it
-    isn't lost. I can recover it by checking out an old commit.
-    You can experiment at will. If it doesn't solve the problem, revert it.
-    You can look at previous versions of the code to find out when and where bugs were introduced. git bisect is great
-    in that regard.
-    More "advanced" features like branching and merging let you have multiple parallel lines of development. You can
-    work in two simultaneous features without interference and switch back and forth without much hassle.
-    You can see "what changed". This may sound basic, but that's something I find myself checking a lot. I very often
-    begin my one-man workflow with: what did I do yesterday?
-    Just go ahead and try it. Start slowly with basic features and learn others as you go. You will soon find that you
-    won't ever want to go back to "the dark ages" of no VCS.
-
-    If you want a local VCS you can setup your own subversion server (what I did in the past), but today I would
-    recommend using git. Much simpler. Simply cd to your code directory and run:
-
-    git init
-    Welcome to the club.
-
-    http://stackoverflow.com/questions/1408450/why-should-i-use-version-control
+    BitKeeper的故事...
+    git的一个优势是速度很快, 感谢Linus多年的Linux内核优化经验
+    git (which means "unpleasant person" in British English slang) is named after Linus, again. 不受欢迎的人.
   </aside>
 </section>
 
 <section>
-  <section>
-    <h2>git的诞生</h2>
-    <div class="fragment">
-      <!--440 × 601-->
-      <img width="267" height="357"
-           data-src="{{site.baseurl}}/content_image/git.101.slides/Linus_Torvalds.jpeg"
-           alt="Linux Torvalds">
-      <br>
-      Linus Torvalds
-    </div>
-    <aside class="notes">
-      BitKeeper的故事...
-      git的一个优势是速度很快, 感谢Linus多年的Linux内核优化经验
-      git (which means "unpleasant person" in British English slang) is named after Linus, again. 不受欢迎的人.
-    </aside>
-  </section>
-  <section>
-    <h2>开发进度...</h2>
-    <ul>
-      <li class="fragment">3 April 2005, development began</li>
-      <li class="fragment">7 April 2005, git became self-hosting</li>
-      <li class="fragment">18 April 2005, first merge of multiple branches</li>
-      <li class="fragment">29 April 2005, performance goal reached</li>
-      <li class="fragment">16 June 2005, git managed the kernel 2.6.12 release</li>
-    </ul>
-  </section>
+  <h2>git的设计目标</h2>
+  <ul>
+    <li>速度</li>
+    <li>对非线性开发模式的强力支持（允许成千上万个并行开发的分支</li>
+    <li>完全分布式</li>
+    <li>有能力高效管理类似 Linux 内核一样的超大规模项目（速度和数据量)</li>
+  </ul>
 </section>
+
+<section>
+  <h2>开发进度...</h2>
+  <ul>
+    <li class="fragment">3 April 2005, development began</li>
+    <li class="fragment">7 April 2005, git became self-hosting</li>
+    <li class="fragment">18 April 2005, first merge of multiple branches</li>
+    <li class="fragment">29 April 2005, performance goal reached</li>
+    <li class="fragment">16 June 2005, git managed the kernel 2.6.12 release</li>
+  </ul>
+</section>
+
 
 <section>
   <section id="env_setup">
-    <h2>环境配置</h2>
-    跨平台, 支持Win, Mac, 及各种Linux发行版
+    <h2>安装git</h2>
+    <div>
+      <h2>git shell</h2>
+      <img width="700" height="480"
+           data-src="{{site.baseurl}}/content_image/git.101.slides/git_bash.png"
+           alt="git bash">
+    </div>
   </section>
   <section>
-    <h2>Mac</h2>
-        <pre><code class="hljs" data-trim>
-          $ xcode-select --install
-        </code></pre>
+    <div>
+      <h2>处理提交——git-gui</h2>
+      <img width="700" height="480"
+           data-src="{{site.baseurl}}/content_image/git.101.slides/git_gui.png"
+           alt="git bash">
+    </div>
   </section>
   <section>
-    <h2>Ubuntu</h2>
-        <pre><code class="hljs" data-trim>
-          $ sudo apt-get install git
-        </code></pre>
+    <div>
+      <h2>查看commit历史——gitk</h2>
+      <img width="700" height="480"
+           data-src="{{site.baseurl}}/content_image/git.101.slides/gitk.png"
+           alt="git bash">
+    </div>
+  </section>
+</section>
+
+<section>
+  <h2>git shell的优势</h2>
+  <ul>
+    <li class="fragment">使用git的所有功能</li>
+    <li class="fragment">UI有多种版本, 不方便交流</li>
+    <li class="fragment">易于编写自动化脚本</li>
+    <li class="fragment">使用效率更高</li>
+  </ul>
+  <aside class="note">
+
+  </aside>
+</section>
+
+<section>
+  <h2>在Linux上安装git</h2>
+  <br>
+  <p>以ubuntu为例, 安装git只需要执行一行命令</p>
+  <pre><code class="hljs" data-trim>
+    $ sudo apt-get install git
+  </code></pre>
+  <p>安装图形界面工具gitk和gui</p>
+  <pre><code class="hljs" data-trim>
+    $ sudo apt-get install gitk git-gui
+  </code></pre>
+</section>
+
+<section>
+  <section>
+    <h2>在Mac上安装git</h2>
+    <br>
+    官方维护的安装包<br>
+    https://git-scm.com/download/mac
   </section>
 
   <section>
-    <h2>Windows</h2>
-    <!--315 × 225-->
+    <h2>用Homebrew包管理器安装git</h2>
+    <p>The missing package manager for OS X http://brew.sh/ </p>
+    <ul>
+      <li>安装git</li>
+    <pre><code class="hljs" data-trim>
+      $ brew install git
+    </code></pre>
+      <li>配置git-gui</li>
+      编辑Home(家)目录下的.gitconfig文件. 添加下述内容:
+    <pre><code class="hljs" data-trim>
+[alias]
+    gui = !sh -c '/usr/local/Cellar/git/2.9.2/libexec/git-core/git-gui'
+    </code></pre>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>在Windows上安装git</h2>
     <p>Git for Windows</p>
-    <img width="262" height="187"
-         data-src="{{site.baseurl}}/content_image/git.101.slides/git_bash.png"
-         alt="git bash">
-    <img width="262" height="187"
-         data-src="{{site.baseurl}}/content_image/git.101.slides/git_gui.png"
-         alt="git gui">
-    <img width="262" height="187"
-         data-src="{{site.baseurl}}/content_image/git.101.slides/gitk.png"
-         alt="gitk">
-
     <p>安装: https://git-for-windows.github.io/</p>
   </section>
 
   <section>
-    <h2>Windows</h2>
-    <p>cygwin (or bash for windows 10) (推荐)</p>
+    <h2>cygwin</h2>
+    <p>Get that Linux feeling - on Windows</p>
     <img width="378" height="270"
          data-src="{{site.baseurl}}/content_image/git.101.slides/cygwin9.png"
          alt="cygwin">
     <!--<p>安装: https://cygwin.com/install.html</p>-->
     <p><a href="{% post_url 2016-07-01-cygwin-setup-for-git %}">安装cygwin下的git环境</a></p>
-    <aside class="notes">
-      推荐使用命令行.
-      统一的术语便于交流
-      方便自动化脚本的编写
-      效率更高
-    </aside>
   </section>
+</section>
+
+<section>
+  <h2>Shell简介</h2>
+  <ul>
+    <li>了解命令: ls, cd, mv, rm, echo, cat</li>
+    <li>了解 | 及 > 或 >></li>
+    <li>知道什么是Home(家)目录</li>
+    <li>命令提示符及当前目录, pwd</li>
+  </ul>
+</section>
+
+<section>
+  <h2>git的配置——git config</h2>
+  <ul>
+    <li>全局配置</li>
+    对当前用户的所有版本库生效. 用*git config --global*来设置和查看. 保存在${HOME}/.gitconfig文件中
+    <li>局部配置</li>
+    只对当前版本库有效, 保存在.git/config文件中
+  </ul>
+</section>
+
+<section>
+  <section>
+    <h2>配置作者名和邮箱</h2>
+    <p>每次保存一个版本, 都会记录提交版本的作者名和邮箱, 因此需要在使用git之前设置好.</p>
+    <pre><code class="hljs" data-trim>
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+    </code></pre>
+  </section>
+  <section>
+    <h2>其它配置</h2>
+    <ul>
+      <li>配置编辑器</li>
+      <p>比如习惯使用emac的同学, 可以这样配置: </p>
+
+      <pre><code class="hljs" data-trim>
+$ git config --global core.editor emacs
+      </code></pre>
+
+      <li>配置git log --graph 输出的格式和颜色</li>
+
+        <pre><code class="hljs" data-trim>
+$ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+        </code></pre>
+      <li>配置冲突解决工具</li>
+      <p><a href="{% post_url 2016-07-10-setup-kdiff3-for-git %}">安装cygwin下的git环境</a></p>
+    </ul>
+  </section>
+  <section>
+    <h2>查看配置</h2>
+      <pre><code class="hljs" data-trim>
+$ git config --list --global
+user.name=John Doe
+user.email=johndoe@example.com
+color.status=auto
+color.branch=auto
+color.interactive=auto
+color.diff=auto
+...
+      </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>获取帮助</h2>
+  <pre><code class="hljs" data-trim>
+$ git help &lt;verb>
+$ git &lt;verb> --help
+$ man git-&lt;verb>
+  </code></pre>
+
+  <br>
+  <p>比如</p>
+    <pre><code class="hljs" data-trim>
+$ git log --help
+$ git help log
+$ man git-help
+    </code></pre>
 </section>
