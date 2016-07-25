@@ -1,0 +1,85 @@
+---
+layout: slide
+title: git 101 [Slides] 第三部——分支
+date: 2016-06-25
+---
+<section>
+  <img width="303" height="126"
+       style="border-width: 0px; background: transparent;"
+       data-src="{{site.baseurl}}/content_image/git.101.slides/Git-Logo-White.png"
+       alt="gitk">
+  <h2>第三部分 分支</h2>
+  <p>
+    <small>Created by <a href="http://supersuperstar.com">Charles Liu</a></small>
+  </p>
+</section>
+
+<section>
+  <h2>Agenda</h2>
+  <ul>
+    <li>查看分支</li>
+    <li>创建分支</li>
+    <li>切换分支</li>
+    <li>合并分支</li>
+    <li>复用commit</li>
+    <li>冲突解决</li>
+  </ul>
+</section>
+
+<section>
+  <h2>查看本地分支</h2>
+  <blockquote>git branch</blockquote>
+  <p>切换到emoji-minesweeper目录, 查看分支</p>
+  <pre ><code class="hljs" data-trim>
+repository $ cd emoji-minesweeper
+emoji-minesweeper $ git branch
+* master
+  </code></pre>
+</section>
+
+<section>
+  <section>
+    <h2>查看全部分支</h2>
+    <blockquote>git branch --all</blockquote>
+    <p>切换到emoji-minesweeper目录, 查看分支</p>
+    <pre ><code class="hljs" data-trim>
+$ git branch --all
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/gh-pages
+  remotes/origin/master
+  remotes/origin/randos
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>创建分支</h2>
+  <blockquote>git branch new_branch_name</blockquote>
+  <pre ><code class="hljs" data-trim>
+$ git branch testing
+$ git branch
+* master
+  testing
+  </code></pre>
+  <div class="fragment">
+    <img width="600" height="300"
+         style="border-width: 0px; background: transparent;"
+         data-src="https://git-scm.com/book/en/v2/book/03-git-branching/images/head-to-master.png"
+         alt="gitk">
+    <p style="font-size: large">source: gitbook</p>
+  </div>
+</section>
+
+<section>
+  <h2>分支图</h2>
+  <div class="mermaid">
+    graph LR
+    A((A))-->B((B))
+    B-->C((C))
+    C-->D((D))
+    D-->E((E))
+    HEAD[HEAD]-->E
+  </div>
+</section>
+
