@@ -620,3 +620,56 @@ DETAIL
     <li>Commit时可以写描述, 方便区分和回忆改动的内容和目的</li>
   </ul>
 </section>
+
+<section>
+  <section>
+    <h2>忽略特定文件</h2>
+    <blockquote>.gitignore文件</blockquote>
+    <p>在工作区, 可以建立也个特殊的文件叫<em>.gitignore</em>, 这个文件里面保存一个不需要git跟踪的文件列表.
+      这样的文件包括, Visual Studio生成的项目配置文件, 比如c编译出来的obj文件, Windows图片文件夹的缩略图缓存文件Thumbs.db等.</p>
+    <ul>
+      <li>所有空行或者以 ＃ 开头的行都会被 Git 忽略。</li>
+      <li>可以使用标准的 glob 模式匹配。</li>
+      <li>匹配模式可以以（/）开头防止递归。</li>
+      <li>匹配模式可以以（/）结尾指定目录。</li>
+      <li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>gitignore文件样例</h2>
+    <pre><code class="hljs" data-trim>
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# matlab
+# Simulink Code Generation
+slprj/
+
+# no .a files
+*.a
+
+# but do track lib.a, even though you're ignoring .a files above
+!lib.a
+
+# only ignore the TODO file in the current directory, not subdir/TODO
+/TODO
+
+# ignore all files in the build/ directory
+build/
+
+# ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
+
+# ignore all .pdf files in the doc/ directory
+doc/**/*.pdf
+    </code></pre>
+
+    <p>https://github.com/github/gitignore 项目维护了常见开发环境的gitignore模板</p>
+  </section>
+  
+</section>
+
