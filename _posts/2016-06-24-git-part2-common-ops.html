@@ -584,14 +584,34 @@ $ git commit -m "a change to demo git usage"
   <section>
     <h2>commit message的书写要求</h2>
     <pre class="fragment"><code class="hljs" data-trim>
-TITLE(小于65字符)
-(空行)
-DETAIL
+修改的摘要（50 个字符或更少）
+
+如果必要的话，加入更详细的解释文字。在
+大概 72 个字符的时候换行。在某些情形下，
+第一行被当作一封电子邮件的标题，剩下的
+文本作为正文。分隔摘要与正文的空行是
+必须的（除非你完全省略正文）；如果你将
+两者混在一起，那么类似变基等工具无法
+正常工作。
+
+空行接着更进一步的段落。
+
+  - 句号也是可以的。
+
+  - 项目符号可以使用典型的连字符或星号
+    前面一个空格，之间用空行隔开，
+    但是可以依据不同的惯例有所不同。
+
+如果你使用缺陷跟踪系统, 在正文最下方引用它们的id
+
+Resolves: #123
+See also: #456, #789
     </code></pre>
     <ul class="fragment">
       <li>标题简要描述所修改的问题</li>
       <li>一定要空行. 空行是git区别标题和正文的方式</li>
-      <li>正文可以详细描述一下问题解决的方法. 有要求的话可以引用BugId, TaskId或者FeatureId, 方便项目跟踪.</li>
+      <li>正文每行不超过72字符.</li>
+      <li>正文可以详细描述一下问题的现象, 原因及解决思路. 有要求的话可以引用BugId, TaskId或者FeatureId, 方便项目跟踪.</li>
     </ul>
   </section>
   <section>
@@ -613,12 +633,28 @@ DETAIL
     Staging ->> Repo: git commit
   </div>
   <br>
-  <ul class="fragment" style="font-size: xx-large">
+  <ul class="fragment">
     <li>对文件系统的改动, 首先会被记录在工作区, 作为Unstaged Chanages或者Untracked Files</li>
     <li>一个Commit, 对于git来说是一个存储记录.</li>
     <li>缓存区是在工作区和Commit记录之间的缓冲. 可以有选择的将一部分文件系统改动添加进缓存区, 让Commit更灵活</li>
     <li>Commit时可以写描述, 方便区分和回忆改动的内容和目的</li>
   </ul>
+</section>
+
+<section>
+  <h2>修改最近一次提交</h2>
+  <blockquote>git commit --amend</blockquote>
+  <pre class="fragment"><code class="hljs" data-trim>
+$ echo "some amends" >> Readme.md
+$ git add Readme.md
+$ git commit --amend
+# 编辑Commit消息然后保存退出
+  </code></pre>
+
+  <pre class="fragment"><code class="hljs" data-trim>
+$ git log --oneline
+  </code></pre>
+
 </section>
 
 <section>
@@ -670,6 +706,5 @@ doc/**/*.pdf
 
     <p>https://github.com/github/gitignore 项目维护了常见开发环境的gitignore模板</p>
   </section>
-  
 </section>
 
