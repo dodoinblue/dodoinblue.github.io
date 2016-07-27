@@ -3,11 +3,21 @@ layout: slide
 title: git 101 [Slides] 第三部——分支
 date: 2016-06-25
 ---
+<style>
+  .branchClass > rect {
+    fill: transparent;
+    stroke:none;
+    stroke-width:0px;
+  }
+  .branchClass > .label {
+    color: white;
+  }
+</style>
 <section>
   <img width="303" height="126"
        style="border-width: 0px; background: transparent;"
        data-src="{{site.baseurl}}/content_image/git.101.slides/Git-Logo-White.png"
-       alt="gitk">
+       alt="git-logo">
   <h2>第三部分 分支</h2>
   <p>
     <small>Created by <a href="http://supersuperstar.com">Charles Liu</a></small>
@@ -56,30 +66,521 @@ $ git branch --all
 <section>
   <h2>创建分支</h2>
   <blockquote>git branch new_branch_name</blockquote>
-  <pre ><code class="hljs" data-trim>
+  <pre><code class="hljs" data-trim>
+# In todo list git
 $ git branch testing
 $ git branch
 * master
   testing
   </code></pre>
-  <div class="fragment">
-    <img width="600" height="300"
+  <div class="fragment" style="float: left; margin-left: 10%;">
+    <img width="300" height="150"
+         style="border-width: 0px; background: transparent;"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/git-branch-head-to-master.png"
+         alt="branch status before creating branch">
+    <p style="font-size: large">创建前</p>
+  </div>
+  <div class="fragment" style="float: right; margin-right: 10%;">
+    <img width="300" height="150"
          style="border-width: 0px; background: transparent;"
          data-src="https://git-scm.com/book/en/v2/book/03-git-branching/images/head-to-master.png"
-         alt="gitk">
-    <p style="font-size: large">source: gitbook</p>
+         alt="branch status after creating branch">
+    <p style="font-size: large">创建后</p>
   </div>
 </section>
 
 <section>
-  <h2>分支图</h2>
-  <div class="mermaid">
-    graph LR
-    A((A))-->B((B))
-    B-->C((C))
-    C-->D((D))
-    D-->E((E))
-    HEAD[HEAD]-->E
+  <section>
+    <h2>切换分支</h2>
+    <blockquote>git checkout branch-name</blockquote>
+    <pre><code class="hljs" data-trim>
+$ git checkout testing
+$ git branch
+  master
+* testing
+    </code></pre>
+    <div class="fragment" style="float: left; margin-left: 10%;">
+      <img width="300" height="150"
+           style="border-width: 0px; background: transparent;"
+           data-src="https://git-scm.com/book/en/v2/book/03-git-branching/images/head-to-master.png"
+           alt="branch status before switching branch">
+      <p style="font-size: large">切换前</p>
+    </div>
+    <div class="fragment" style="float: right; margin-right: 10%;">
+      <img width="300" height="150"
+           style="border-width: 0px; background: transparent;"
+           data-src="https://git-scm.com/book/en/v2/book/03-git-branching/images/head-to-testing.png"
+           alt="branch status after switching branch">
+      <p style="font-size: large">切换后</p>
+    </div>
+  </section>
+  <section>
+    <h2>创建并切换到新分支</h2>
+    <blockquote>git checkout -b new-branch-name</blockquote>
+    <p>下述两组命令等价:</p>
+    <pre><code class="hljs" data-trim>
+$ git branch testing
+$ git checkout testing
+    </code></pre>
+    <pre><code class="hljs" data-trim>
+$ git checkout -b testing
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>在新分支上提交代码</h2>
+    <pre><code class="hljs" data-trim>
+$ echo "# Shopping list" >> shopping.md
+$ echo "" >> shopping.md # blank line
+$ git add .
+# . 意思是暂存当前目录及子目录下所有变化, 包括未跟踪状态下的文件
+$ git commit -m "Add shopping list title"
+    </code></pre>
+    <p>master 和 testing这两个分支上的状态会有什么不同?</p>
+    <div class="fragment" style="float: left; margin-left: 10%;">
+      <img width="300" height="150"
+           style="border-width: 0px; background: transparent;"
+           data-src="https://git-scm.com/book/en/v2/book/03-git-branching/images/head-to-testing.png"
+           alt="branch status before commit">
+      <p style="font-size: large">提交前</p>
+    </div>
+    <div class="fragment" style="float: right; margin-right: 10%;">
+      <img width="300" height="150"
+           style="border-width: 0px; background: transparent;"
+           data-src="https://git-scm.com/book/en/v2/book/03-git-branching/images/advance-testing.png"
+           alt="branch status after commit">
+      <p style="font-size: large">提交后</p>
+    </div>
+  </section>
+  <section>
+    <h2>通过git shell查看多分支间commit之间的关系</h2>
+    <blockquote>git log --all</blockquote>
+    <pre><code class="hljs" data-trim>
+$ git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an>%Creset' --abbrev-commit
+* 0ba7b40 - (HEAD -> testing, origin/master, origin/HEAD, master) kiwi (3 weeks ago) &lt;Xingchao Liu>
+*   3a3543f - Merge branch 'soy-milk' (3 weeks ago) &lt;Xingchao Liu>
+|\
+| * de1fef2 - (origin/soy-milk) charles wants soy-milk (3 weeks ago) &lt;Charles Liu>
+* | 7aa2e2e - (origin/apple) buy apple (3 weeks ago) &lt;Charles Liu>
+|/
+* 2e64ee8 - orange (3 weeks ago) &lt;Charles Liu>
+* 65a9ca6 - milk (3 weeks ago) &lt;Charles Liu>
+* 358c3a0 - (origin/bbb) 添加一个标题 (3 weeks ago) &lt;Charles Liu>
+    </code></pre>
+
+    <p>可以通过配置别名简化输入. 见<a href="{{site.baseurl}}/2016/06/24/git-part2-common-ops/#/git-alias">配置别名</a></p>
+  </section>
+
+  <section>
+    <h2>通过gitk图形界面查看分支关系</h2>
+    <blockquote>gitk --all</blockquote>
+    <pre><code class="hljs" data-trim>
+$ gitk --all
+    </code></pre>
+    <img width="600" height="400"
+         style="border-width: 0px; background: transparent;"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/gitk-all.png"
+         alt="gitk --all">
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>切换分支对文件系统的影响</h2>
+    <pre><code class="hljs" data-trim>
+$ gitk checkout master
+$ cat shopping.md
+cat: shopping.md: No such file or directory
+    </code></pre>
+
+    <blockquote>切换分支会改变文件系统. 工作区的目录结构和文件内容都会变到对应的分支最后一次提交的状态.</blockquote>
+  </section>
+  <section>
+    <h2>有未提交的改动时切换工作区版本</h2>
+    <pre><code class="hljs" data-trim>
+$ git checkout testing
+$ echo "Buy an apple" >> shopping.md
+$ git checkout testing
+error: Your local changes to the following files would be overwritten by checkout:
+    shopping.md
+Please commit your changes or stash them before you can switch branches.
+Aborting
+    </code></pre>
+  </section>
+  <section>
+    <h2>储藏已修改的文件</h2>
+    <blockquote>git stash</blockquote>
+    <pre><code class="hljs" data-trim>
+$ git stash
+Saved working directory and index state WIP on testing: 7c83fe6 Add shopping list title
+HEAD is now at 7c83fe6 Add shopping list title
+$ git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+    </code></pre>
+
+    <p>要储藏Untracked文件, 需要用<em>--include-untracked</em>参数</p>
+  </section>
+  <section>
+    <h2>把储藏的文件应用回工作区</h2>
+    <pre><code class="hljs" data-trim>
+$ git stash pop
+On branch testing
+Changes not staged for commit:
+  (use "git add &lt;file>..." to update what will be committed)
+  (use "git checkout -- &lt;file>..." to discard changes in working directory)
+
+      modified:   shopping.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (6efa6ecc509655f4f8d59b7c4cc37417de0a8c08)
+    </code></pre>
+  </section>
+</section>
+
+<!--<section>-->
+  <!--<section>-->
+    <!--<h2>Reachability 可到达性</h2>-->
+        <!--<pre class="fragment"><code class="hljs">-->
+          <!--      A-&#45;&#45;B-&#45;&#45;C topic-->
+          <!--    /-->
+          <!--D-&#45;&#45;E-&#45;&#45;F-&#45;&#45;G master-->
+        <!--</code></pre>-->
+    <!--<p class="fragment">从C点可以追溯到B, A, E, D点</p>-->
+  <!--</section>-->
+  <!--<section>-->
+    <!--<p>实际的例子</p>-->
+      <!--<pre class="fragment"><code class="hljs" data-trim>-->
+<!--$ git checkout master-->
+<!--$ echo "" >> Readme.md-->
+<!--$ echo "* Buy milk" >> Readme.md-->
+<!--$ git add Readme.md-->
+<!--$ git commit -m "Add todo item: buy milk"-->
+<!--$ echo "* Buy orange" >> Readme.md-->
+<!--$ git add Readme.md-->
+<!--$ git commit -m "Mum wants some orange"-->
+<!--$ git checkout todo-->
+<!--$ echo "" >> Readme.md-->
+<!--$ echo "* Prepare git training" >> Readme.md-->
+<!--$ git add Readme.md-->
+<!--$ git commit -m "My work: Git training"-->
+      <!--</code></pre>-->
+  <!--</section>-->
+  <!--<section>-->
+    <!--<p>当前版本库的各分支commit状态</p>-->
+        <!--<pre class="fragment"><code class="hljs" data-trim>-->
+<!--$ git lg &#45;&#45;all-->
+<!--* 91292e5 - (HEAD -> todo) training (24 minutes ago) &lt;Charles Liu>-->
+<!--| * bd36223 - (master) orange (26 minutes ago) &lt;Charles Liu>-->
+<!--| * e4a2762 - Milk (26 minutes ago) &lt;Charles Liu>-->
+<!--|/-->
+<!--* a2ce87d - Add Readme Title (27 minutes ago) &lt;Charles Liu>-->
+        <!--</code></pre>-->
+    <!--<p class="fragment">从training点可以追溯到哪些commit?</p>-->
+  <!--</section>-->
+
+  <!--<section>-->
+    <!--<p>git lg &#45;&#45;all命令中, &#45;&#45;all的作用是什么?</p>-->
+  <!--</section>-->
+<!--</section>-->
+
+<section>
+  <section>
+    <h2>合并分支</h2>
+    <blockquote>
+      git merge branch_name (to current branch)
+    </blockquote>
+    <div class="fragment" style="font-size: x-large;">
+      <p>分支初始状态</p>
+      <div class="mermaid" >
+        graph LR
+        a((a))-->b((b))
+        b-->c((c))
+        d((d))-->e((e))
+        e-->f((f))
+        f---x(master)
+        c---y(topic)
+        e-->a
+        class x,y branchClass;
+      </div>
+    </div>
+    <div class="fragment" style="font-size: x-large;">
+      <p>普通合并</p>
+      <div class="mermaid">
+        graph LR
+        a((a))-->b((b))
+        b-->c((c))
+        d((d))-->e((e))
+        c-->m((M))
+        e-->f((f))
+        f-->m
+        m---y(master/topic)
+        e-->a
+        class y branchClass
+        style m fill:yellow;
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>分支实例</h2>
+    <pre class="fragment"><code class="hljs" data-trim>
+$ git checkout -b soy-milk
+$ # Change milk to soy-milk
+$ git add .
+$ git commit "charles wants soy-milk"
+$ git checkout master
+$ echo "buy apple" >> Readme.md
+$ git add .
+$ git commit -m "buy apple"
+$ git lg --all
+    </code></pre>
+    <pre class="fragment"><code class="hljs" data-trim>
+* 59f6d63 - (HEAD -> master) buy apple(6 seconds ago) &lt;Charles Liu>
+| * f46bd2d - (soy-milk) Charles wants soy milk (2 minutes ago) &lt;Charles Liu>
+|/
+* bd36223 - orange (3 hours ago) &lt;Charles Liu>
+* e4a2762 - Milk (3 hours ago) &lt;Charles Liu>
+| * 91292e5 - (todo) training (3 hours ago) &lt;Charles Liu>
+|/
+* a2ce87d - Add Readme Title (3 hours ago) &lt;Charles Liu>
+    </code></pre>
+  </section>
+  <section>
+    <h2>分支实例——合并</h2>
+    <pre class="fragment"><code class="hljs" data-trim>
+$ git checkout master
+$ git merge soy-milk
+    </code></pre>
+    <p class="fragment">跳转到Commit Message编辑界面, 用默认Message.</p>
+    <pre class="fragment"><code class="hljs" data-trim>
+$ git lg --all
+*   7c53e8c - (HEAD -> master) Merge branch 'soy-milk' (15 seconds ago) &lt;Charles Liu>
+|\
+| * f46bd2d - (soy-milk) Charles wants soy milk (14 minutes ago) &lt;Charles Liu>
+* | ad76997 - buy apple (34 seconds ago) &lt;Charles Liu>
+|/
+* bd36223 - orange (3 hours ago) &lt;Charles Liu>
+* e4a2762 - Milk (3 hours ago) &lt;Charles Liu>
+| * 91292e5 - (todo) training (3 hours ago) &lt;Charles Liu>
+|/
+* a2ce87d - Add Readme Title (3 hours ago) &lt;Charles Liu>
+    </code></pre>
+  </section>
+  <section>
+    <h2>fast-forward merge</h2>
+    <div class="fragment" style="font-size: x-large;">
+      <p>分支初始状态</p>
+      <div class="mermaid" >
+        graph LR
+        a((a))-->b((b))
+        b-->c((c))
+        d((d))-->e((e))
+        e---x(master)
+        c---y(topic)
+        e-->a
+        class x,y branchClass;
+      </div>
+    </div>
+    <div class="fragment" style="font-size: x-large;">
+      <p>普通合并</p>
+      <div class="mermaid">
+        graph LR
+        a((a))-->b((b))
+        b-->c((c))
+        d((d))-->e((e))
+        c-->m((M))
+        e-->m
+        m---y(master/topic)
+        e-->a
+        class y branchClass
+        style m fill:yellow;
+      </div>
+    </div>
+    <div class="fragment" style="font-size: x-large;">
+      <p>Fast-Forward合并</p>
+      <div class="mermaid">
+        graph LR
+        a((a))-->b((b))
+        b-->c((c))
+        d((d))-->e((e))
+        e-->a
+        c---y(master/topic)
+        class y branchClass
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <h2>变基(Rebase)分支</h2>
+  <blockquote>git rebase ref_branch_name</blockquote>
+
+  <div class="fragment" style="font-size: x-large;">
+    <p>分支初始状态</p>
+    <div class="mermaid">
+      graph LR
+      d((d))-->e((e))
+      e-->f((f))
+      f-->g((g))
+      e-->a((a))
+      a-->b((b))
+      b-->c((c))
+      c---topic(topic)
+      g---master(master)
+      class topic,master branchClass
+    </div>
+  </div>
+  <div class="fragment" style="font-size: x-large;">
+    <p>变基后</p>
+    <div class="mermaid">
+      graph LR
+      d((d))-->e((e))
+      e-->f((f))
+      f-->g((g))
+      a((a'))-->b((b'))
+      b-->c((c'))
+      g-->a
+      c---topic(topic)
+      g---master(master)
+      class topic,master branchClass
+    </div>
   </div>
 </section>
+
+<!--<section>-->
+  <!--<h2>在多分支间重用代码</h2>-->
+  <!--<blockquote>-->
+    <!--git cherry-pick commit-id-->
+  <!--</blockquote>-->
+  <!--<pre class="fragment"><code class="hljs">-->
+    <!--A  -  B  -  C  -  D  -  E - dev-->
+    <!--\-->
+    <!--|        \ cherry-pick-->
+    <!--\-->
+    <!--\ -  X  -  C' - release-->
+  <!--</code></pre>-->
+<!--</section>-->
+
+<section>
+  <section>
+    <h2>冲突解决</h2>
+    <blockquote>
+      git mergetool
+    </blockquote>
+<pre class="fragment"><code class="hljs">
+  File 1  |  File 2
+  A     |     A
+  C     |     B
+  D'    |     C
+  F     |     D''
+  |     F
+</code></pre>
+    <p class="fragment">Original File</p>
+    <pre class="fragment"><code class="hljs">
+A B C D E F
+    </code></pre>
+    <p class="fragment">最终文件里应该包括什么?</p>
+  </section>
+  <section>
+    <h2>安装配置Kdiff3</h2>
+    <p>Mac & Windows</p>
+    <p style="text-align: left">
+      <small>Download: https://sourceforge.net/projects/kdiff3/files/kdiff3/0.9.98/
+        <br>安装路径最好不要有空格
+        <br>在${HOME}/.gitconfig文件中添加下述配置:</small>
+    </p>
+    <pre><code class="hljs" data-trim>
+[merge]
+    tool = kdiff3
+[mergetool "kdiff3"]
+    path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+(/cygdrive/c/kdiff3/kdiff3.exe)
+    </code></pre>
+    <p>Ubuntu</p>
+    <pre><code class="hljs" data-trim>
+$ sudo apt-get install kdiff3
+$ vim ~/.gitconfig
+
+# Add following:
+[merge]
+tool = kdiff3
+    </code></pre>
+  </section>
+  <section>
+    <h2>解决一个冲突</h2>
+    <p>在todo-list代码库中</p>
+    <pre><code class="hljs" data-trim>
+$ git checkout todo
+$ git checkout master
+$ git merge todo
+Auto-merging Readme.md
+CONFLICT (content): Merge conflict in Readme.md
+Automatic merge failed; fix conflicts and then commit the result.
+    </code></pre>
+
+    <pre><code class="hljs" data-trim>
+$ git mergetool
+    </code></pre>
+  </section>
+  <section>
+    <img width="320" height="183"
+         style="border-width: 0px; background: transparent;"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/kdiff3_conflicts_count.png"
+         alt="gitk">
+    <br>
+    <img width="640" height="480"
+         style="border-width: 0px; background: transparent;"
+         data-src="{{site.baseurl}}/content_image/git.101.slides/kdiff3_workspace.png"
+         alt="gitk">
+  </section>
+  <section>
+    <p>选C, 选B, 保存退出</p>
+    <pre><code class="hljs" data-trim>
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+All conflicts fixed but you are still merging.
+(use "git commit" to conclude merge)
+
+Changes to be committed:
+
+modified:   Readme.md
+
+Untracked files:
+(use "git add &lt;file>..." to include in what will be committed)
+
+Readme.md.orig
+    </code></pre>
+    <p>
+      执行rm Readme.md.orig删除生成的备份文件<br>
+      或者执行git clean -f删除所有untracked files
+    </p>
+  </section>
+  <section>
+    <pre><code class="hljs" data-trim>
+$ git commit
+# 跳转到VIM, 使用默认Commit Message. :wq退出
+$ git lg
+*   b637fe8 - (HEAD -> master) Merge branch 'todo' (8 seconds ago) &lt;Charles Liu>
+|\
+| * 14e2113 - (origin/todo, todo) training (20 hours ago) &lt;Charles Liu>
+* | 2e64ee8 - (origin/master, origin/HEAD) orange (20 hours ago) &lt;Charles Liu>
+* | 65a9ca6 - milk (20 hours ago) &lt;Charles Liu>
+|/
+* 358c3a0 - (origin/bbb) 添加一个标题 (21 hours ago) &lt;Charles Liu>
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>删除分支</h2>
+    <blockquote>
+      git branch -d branch_name [--force]
+    </blockquote>
+  </section>
+</section>
+
 
