@@ -294,7 +294,7 @@ Dropped refs/stash@{0} (6efa6ecc509655f4f8d59b7c4cc37417de0a8c08)
     </blockquote>
     <div class="fragment" style="font-size: x-large;">
       <p>分支初始状态</p>
-      <div class="mermaid" >
+      <div class="mermaid" style="height: 150px;">
         graph LR
         a((a))-->b((b))
         b-->c((c))
@@ -308,7 +308,7 @@ Dropped refs/stash@{0} (6efa6ecc509655f4f8d59b7c4cc37417de0a8c08)
     </div>
     <div class="fragment" style="font-size: x-large;">
       <p>普通合并</p>
-      <div class="mermaid">
+      <div class="mermaid" style="height: 150px;">
         graph LR
         a((a))-->b((b))
         b-->c((c))
@@ -372,7 +372,7 @@ $ git lg --all
     <h2>fast-forward merge</h2>
     <div class="fragment" style="font-size: x-large;">
       <p>分支初始状态</p>
-      <div class="mermaid" >
+      <div class="mermaid" style="height: 150px">
         graph LR
         a((a))-->b((b))
         b-->c((c))
@@ -385,7 +385,7 @@ $ git lg --all
     </div>
     <div class="fragment" style="font-size: x-large;">
       <p>普通合并</p>
-      <div class="mermaid">
+      <div class="mermaid" style="height: 100px;">
         graph LR
         a((a))-->b((b))
         b-->c((c))
@@ -400,7 +400,7 @@ $ git lg --all
     </div>
     <div class="fragment" style="font-size: x-large;">
       <p>Fast-Forward合并</p>
-      <div class="mermaid">
+      <div class="mermaid" style="height: 100px;">
         graph LR
         a((a))-->b((b))
         b-->c((c))
@@ -419,7 +419,7 @@ $ git lg --all
 
   <div class="fragment" style="font-size: x-large;">
     <p>分支初始状态</p>
-    <div class="mermaid">
+    <div class="mermaid" style="height: 150px;">
       graph LR
       d((d))-->e((e))
       e-->f((f))
@@ -434,7 +434,7 @@ $ git lg --all
   </div>
   <div class="fragment" style="font-size: x-large;">
     <p>变基后</p>
-    <div class="mermaid">
+    <div class="mermaid" style="height: 150px">
       graph LR
       d((d))-->e((e))
       e-->f((f))
@@ -469,19 +469,19 @@ $ git lg --all
     <blockquote>
       git mergetool
     </blockquote>
-<pre class="fragment"><code class="hljs">
-  File 1  |  File 2
-  A     |     A
-  C     |     B
-  D'    |     C
-  F     |     D''
-  |     F
-</code></pre>
-    <p class="fragment">Original File</p>
-    <pre class="fragment"><code class="hljs">
-A B C D E F
-    </code></pre>
-    <p class="fragment">最终文件里应该包括什么?</p>
+<!--<pre class="fragment"><code class="hljs">-->
+  <!--File 1  |  File 2-->
+  <!--A     |     A-->
+  <!--C     |     B-->
+  <!--D'    |     C-->
+  <!--F     |     D''-->
+  <!--|     F-->
+<!--</code></pre>-->
+    <!--<p class="fragment">Original File</p>-->
+    <!--<pre class="fragment"><code class="hljs">-->
+<!--A B C D E F-->
+    <!--</code></pre>-->
+    <!--<p class="fragment">最终文件里应该包括什么?</p>-->
   </section>
   <section>
     <h2>安装配置Kdiff3</h2>
@@ -525,6 +525,7 @@ $ git mergetool
     </code></pre>
   </section>
   <section>
+    <h2>kdiff3工作界面</h2>
     <img width="320" height="183"
          style="border-width: 0px; background: transparent;"
          data-src="{{site.baseurl}}/content_image/git.101.slides/kdiff3_conflicts_count.png"
@@ -536,6 +537,7 @@ $ git mergetool
          alt="gitk">
   </section>
   <section>
+    <h2>kdiff3操作</h2>
     <p>选C, 选B, 保存退出</p>
     <pre><code class="hljs" data-trim>
 $ git status
