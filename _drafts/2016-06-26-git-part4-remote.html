@@ -1,0 +1,226 @@
+---
+layout: slide
+title: git 101 [Slides] 第四部——远程仓库的使用
+date: 2016-06-26
+---
+<style>
+  .branchClass > rect {
+    fill: transparent;
+    stroke:none;
+    stroke-width:0px;
+  }
+  .branchClass > .label {
+    color: white;
+  }
+</style>
+<section>
+  <img width="303" height="126"
+       style="border-width: 0px; background: transparent;"
+       data-src="{{site.baseurl}}/content_image/git.101.slides/Git-Logo-White.png"
+       alt="git-logo">
+  <h2>第四部分 远程仓库的使用</h2>
+  <p>
+    <small>Created by <a href="http://supersuperstar.com">Charles Liu</a></small>
+  </p>
+</section>
+
+<section>
+  <h2>Agenda</h2>
+  <ul>
+    <li>远程仓库和gitlab</li>
+    <li>查看远程仓库</li>
+    <li>添加远程仓库</li>
+    <li>抓取代码</li>
+    <li>跟踪一个远程分支和拉取代码</li>
+    <li>推送代码</li>
+    <li>工作流</li>
+  </ul>
+</section>
+
+<section>
+  <h2>远程仓库</h2>
+  <div>
+    <img style="border: none; background: transparent"
+         src="https://git-scm.com/book/en/v2/book/05-distributed-git/images/centralized_workflow.png">
+  </div>
+  <pre class="fragment"><code class="hljs" data-trim>
+# 通过目录共享版本库
+$ git clone /opt/git/project.git
+$ git clone file:///opt/git/project.git
+
+# 通过http协议共享版本库
+$ git clone https://example.com/gitproject.git
+
+# 通过ssh协议共享版本库
+$ git clone ssh://user@server/project.git
+$ git clone user@server:project.git
+  </code></pre>
+  <aside class="notes">
+    作为一个大家共享的版本库, 是不需要工作区的. 没有人会直接修改remote上面的git版本库的文件. 用git clone --bare来创建没有工作区的版本库.
+  </aside>
+</section>
+
+<section>
+  <h2>github和gitlab ce</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>功能</th>
+      <th>Github</th>
+      <th>Gitlab CE</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>同步代码</td>
+      <td>可以</td>
+      <td>可以</td>
+    </tr>
+    <tr>
+      <td>托管方式</td>
+      <td>托管</td>
+    <td>自建服务器</td>
+    </tr>
+    <tr>
+      <td>文件查看</td>
+      <td>支持</td>
+      <td>支持</td>
+    </tr>
+    <tr>
+      <td>分支管理</td>
+      <td>支持</td>
+      <td>支持</td>
+    </tr>
+    <tr>
+      <td>代码审查</td>
+      <td>支持</td>
+      <td>支持</td>
+    </tr>
+    <tr>
+      <td>合作方式</td>
+      <td>派生+拉取请求</td>
+      <td>派生+合并请求</td>
+    </tr>
+    <tr>
+      <td>费用</td>
+      <td>开源免费,闭源收费</td>
+      <td>自建免费,托管收费</td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>查看远程仓库</h2>
+  <blockquote>git remote</blockquote>
+  <pre><code class="hljs" data-trim>
+# emoji-minesweeper项目
+$ git remote -v
+origin	git@github.com:dodoinblue/emoji-minesweeper.git (fetch)
+origin	git@github.com:dodoinblue/emoji-minesweeper.git (push)
+  </code></pre>
+
+  <div class="fragment">
+    <p>多个remote的项目看起来像是下面这个样子</p>
+    <pre><code class="hljs" data-trim>
+defunkt   https://github.com/defunkt/grit (fetch)
+defunkt   https://github.com/defunkt/grit (push)
+koke      git://github.com/koke/grit.git (fetch)
+koke      git://github.com/koke/grit.git (push)
+origin    git@github.com:mojombo/grit.git (fetch)
+origin    git@github.com:mojombo/grit.git (push)
+    </code></pre>
+  </div>
+  <p class="fragment">通过init创建的git没有remote</p>
+</section>
+
+<section>
+  <h2>远程分支</h2>
+  <pre class="fragment"><code class="hljs" data-trim>
+# emoji-minesweeper项目
+$ git branch --all
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/gh-pages
+  remotes/origin/master
+  remotes/origin/randos
+  </code></pre>
+
+  <div class="fragment">
+    <img style="border: none; background: lightyellow"
+         src="https://git-scm.com/book/en/v2/book/03-git-branching/images/remote-branches-1.png">
+  </div>
+  <aside class="notes">
+    remote分支在本地都有一份对应的分支, 以remote开头. 下一段是remote的名字, 然后是分支名.
+    因为git是分布式的, 所以当服务器上有更新时, 这些remote并不知道, 也不更新.
+    只有fetch才会拉去这些变化
+  </aside>
+</section>
+
+<section>
+  <h2>抓取代码</h2>
+  <blockquote>git fetch [remote-name]</blockquote>
+  <div class="fragment" style="float: left; width: 50%;">
+    <img style="border: none; background: lightyellow"
+         src="https://git-scm.com/book/en/v2/book/03-git-branching/images/remote-branches-2.png">
+  </div>
+  <div class="fragment" style="float: right; width: 50%;">
+    <img style="border: none; background: lightyellow"
+         src="https://git-scm.com/book/en/v2/book/03-git-branching/images/remote-branches-3.png">
+  </div>
+</section>
+
+<section>
+  <section>
+    <h2>把remote的变化应用到本地分支上</h2>
+    <p>用变基(rebase)而不是合并merge</p>
+  <pre class="fragment"><code class="hljs" data-trim>
+$ git fetch
+$ git rebase origin/master
+  </code></pre>
+  </section>
+  <section>
+    <h2>拉取代码——用一个命令更新本地分支代码</h2>
+    <blockquote>git pull</blockquote>
+    <pre class="fragment"><code class="hljs" data-trim>
+$ git pull --rebase
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>推送代码</h2>
+  <blockquote>git push</blockquote>
+  <pre class="fragment"><code class="hljs" data-trim>
+$ git push origin master
+
+$ git push origin charles-feature-name
+  </code></pre>
+</section>
+
+
+<section>
+  <h2>删除远程分支</h2>
+  <pre class="fragment"><code class="hljs" data-trim>
+$ git push origin --delete serverfix
+To https://github.com/schacon/simplegit
+- [deleted]         serverfix
+  </code></pre>
+</section>
+
+<section>
+  <h2>派生(fork)</h2>
+  <h2>拉取请求(pull request)和合并请求(merge request)</h2>
+</section>
+
+<section>
+  <h2>案例解析</h2>
+  <p style="font-size: large">https://github.com/dodoinblue/git-todo-list</p>
+  <ul>
+    <li>bob负责修改Readme.md的列表格式错误</li>
+    <li>peter认为Readme不是一个Todolist, 而是一个shopping list</li>
+    <li>bob和peter同时下载代码各自工作</li>
+    <li>bob首先修改完成, 提交代码并合并到master</li>
+    <li>peter提交代码</li>
+  </ul>
+</section>
