@@ -214,13 +214,53 @@ To https://github.com/schacon/simplegit
 </section>
 
 <section>
-  <h2>案例解析</h2>
-  <p style="font-size: large">https://github.com/dodoinblue/git-todo-list</p>
-  <ul>
-    <li>bob负责修改Readme.md的列表格式错误</li>
-    <li>peter认为Readme不是一个Todolist, 而是一个shopping list</li>
-    <li>bob和peter同时下载代码各自工作</li>
-    <li>bob首先修改完成, 提交代码并合并到master</li>
-    <li>peter提交代码</li>
-  </ul>
+  <h2>案例——单分支工作</h2>
+  <div>
+    <div class="mermaid"
+         style="height: 400px; padding: 20px; font-size: large; background: lightyellow;">
+      sequenceDiagram
+      Server ->> Peter: git clone
+      Server ->> Bob: git clone
+      activate Peter
+      activate Bob
+      Note right of Peter: 实现特性1
+      Note right of Bob: 修改Bug1
+      deactivate Bob
+      Bob ->> Server: git push
+      Server ->> Server: accept change
+      deactivate Peter
+      Peter ->> Server: git push
+      Server --x Server: 冲突
+      Peter ->> Peter: git rebase
+      Peter ->> Server: git push
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>案例——Review不通过</h2>
+  <div>
+    <div class="mermaid"
+         style="height: 400px; padding: 20px; font-size: large; background: lightyellow;">
+      sequenceDiagram
+      Server ->> Peter: git clone
+      activate Peter
+      Note right of Peter: 实现特性1
+      deactivate Peter
+      Peter ->> Server: git push & merge request
+      loop 直到审核通过
+      Server ->> Reviewer: 请审查代码
+      Note right of Reviewer: 审查代码..
+      Reviewer ->> Server: Review NOK
+      activate Peter
+      Peter ->> Peter: 按照Review修改代码
+      deactivate Peter
+      Peter ->> Peter: git commit --amend
+      Peter ->> Server: git push
+      Server ->> Server: Update MR
+      end
+      Server ->> Reviewer: 请审查代码
+      Reviewer ->> Server: Review OK. Accept Merge
+    </div>
+  </div>
 </section>
