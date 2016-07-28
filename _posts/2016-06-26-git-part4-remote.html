@@ -214,6 +214,34 @@ To https://github.com/schacon/simplegit
 </section>
 
 <section>
+  <h2>打标签 (tag)</h2>
+  <blockquote>git tag</blockquote>
+  <pre class="fragment"><code class="hljs" data-trim>
+# 列出标签
+$ git tag -l
+0.1.0
+0.1.1
+0.1.2
+  </code></pre>
+
+  <pre class="fragment"><code class="hljs" data-trim>
+# 添加标签
+$ git tag -a tagname commit-id
+  </code></pre>
+
+  <pre class="fragment"><code class="hljs" data-trim>
+# 共享标签(推送到服务器)
+$ git push origin tag-name
+# 推送所有标签
+$ git push origin --tags
+  </code></pre>
+  <pre class="fragment"><code class="hljs" data-trim>
+# 检出标签
+$ git checkout 0.1.0
+  </code></pre>
+</section>
+
+<section>
   <h2>案例——单分支工作</h2>
   <div>
     <div class="mermaid"
