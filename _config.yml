@@ -18,10 +18,6 @@ links:
 # ------------ CONFIGURABLE END ------------
 
 permalink:        /posts/:title
-markdown:         kramdown # redcarpet is no longer supported.
-kramdown:
-  input: GFM
-  hard_wrap: false
 
 defaults:
   - values:
