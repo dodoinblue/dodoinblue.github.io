@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 为git配置Commit Message的编辑器
 date: 2016-07-11
 ---

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 为git配置冲突解决工具kdiff3
 date: 2016-07-10
 ---

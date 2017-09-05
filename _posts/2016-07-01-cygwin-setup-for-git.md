@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 安装cygwin下的git环境
 date: 2016-07-01
 ---

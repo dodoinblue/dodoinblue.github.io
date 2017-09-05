@@ -1,5 +1,4 @@
 ---
-layout: post
 title: git基础
 date: 2016-06-03 15:27:31
 ---

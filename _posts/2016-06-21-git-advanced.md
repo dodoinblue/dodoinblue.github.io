@@ -1,5 +1,4 @@
 ---
-layout: post
 title: git进阶
 date: 2016-06-21 18:38:21
 ---

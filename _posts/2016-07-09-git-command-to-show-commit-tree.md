@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 配置git log graph高亮显示多分支commit树
 date: 2016-07-09
 ---
