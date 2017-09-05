@@ -1,10 +1,11 @@
-title:            Think aloud
-description:      A Charles blog
+# ----------- CONFIGURABLE START -----------
+title:            "Think out loud"
+description:      "A Charles Blog"
 url:              #
-signoff:          Charles
-#disqus_shortname: # disqus comment thread for post header options. ( leave blank if unwanted. )
-#facebook_appid:   # appid for like button, remove from /_includes/share.html if unwanted.
-#google_analytics: # set tracking, remove from /javascripts/basic.js if unwanted.
+signoff:          "Charles"
+#facebook_appid:   # APP ID for like button, remove from /_includes/share.html if unwanted.
+#google_analytics: # Set tracking, remove from /javascripts/basic.js if unwanted.
+#share:            false # Turn on twitter and facebook share buttons
 
 links:
 #  - name:         About
@@ -14,12 +15,14 @@ links:
   - name:         Email
     url:          mailto:dodoinblue@gmail.com
     external:     true
-  - name:         GitHub
-    url:          http://github.com/dodoinblue
-    external:     true
-highlighter:      rouge
-permalink:        pretty
+# ------------ CONFIGURABLE END ------------
+
+permalink:        /posts/:title
 markdown:         kramdown # redcarpet is no longer supported.
 kramdown:
   input: GFM
   hard_wrap: false
+
+defaults:
+  - values:
+      layout: "default"
