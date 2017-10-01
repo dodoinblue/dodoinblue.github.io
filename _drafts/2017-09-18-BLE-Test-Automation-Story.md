@@ -2,6 +2,7 @@
 layout: post
 title: Automated BLE device test tool - The Story
 date: 2017-09-04 19:27:31
+language: en
 ---
 
 ## The problem
