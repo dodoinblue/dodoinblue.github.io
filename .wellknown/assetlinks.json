@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "com.mementoyou.testapp",
+               "sha256_cert_fingerprints": ["41:30:6C:74:64:C7:11:99:C8:6C:93:71:BE:2E:93:83:08:29:E0:69:23:5C:BD:B3:C7:CE:4E:01:55:9C:E2:CA"] }
+}]
